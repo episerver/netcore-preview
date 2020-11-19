@@ -1,0 +1,24 @@
+[
+  {
+    "outputFileName": "wwwroot/css/css.min.css",
+    "inputFiles": [
+      "wwwroot/css/bootstrap.css",
+      "wwwroot/css/bootstrap-responsive.css",
+      "wwwroot/css/media.css",
+      "wwwroot/css/style.css",
+      "wwwroot/css/editmode.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/script.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.js",
+      "wwwroot/js/bootstrap.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

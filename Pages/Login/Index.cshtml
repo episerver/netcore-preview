@@ -1,0 +1,42 @@
+@page "/Login"
+@model AlloyMvcTemplates.Pages.LoginModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/css.min.css" />
+    <link rel="stylesheet" href="~/js/script.min.js" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+
+                <h2>Login</h2>
+
+                <form method="POST">
+                    @Html.AntiForgeryToken()
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.LoginViewModel.Username)
+                        @Html.TextBoxFor(m => m.LoginViewModel.Username)
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.LoginViewModel.Password)
+                        @Html.PasswordFor(m => m.LoginViewModel.Password)
+                    </div>
+                    <div class="control-group">
+                        @Html.ValidationMessage("error")
+                    </div>
+                    <div class="control-group">
+                        <input type="submit" class="" value="Login" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

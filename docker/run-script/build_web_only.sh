@@ -1,0 +1,1 @@
+docker load -i alloy-web.tar
