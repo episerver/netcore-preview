@@ -30,7 +30,7 @@ namespace EPiServer.Templates.Alloy.Mvc
         public void ConfigureServices(IServiceCollection services)
         {
             var dbPath = Path.Combine(_webHostingEnvironment.ContentRootPath, "App_Data\\Alloy.mdf");
-            var connectionstring = _configuration.GetConnectionString("EPiServerDB") ?? $"Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename={dbPath};Initial Catalog=alloy_mvc_netcore;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
+            var connectionstring = _configuration.GetConnectionString("EPiServerDB") ?? $"Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename={dbPath};Initial Catalog=alloy_netcore_preview;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
 
             services.Configure<DataAccessOptions>(o =>
             {
@@ -48,11 +48,6 @@ namespace EPiServer.Templates.Alloy.Mvc
                     };
                 }
             });
-
-            if (_webHostingEnvironment.IsDevelopment())
-            {
-                
-            }
 
             services.AddMvc();
             services.AddAlloy();
