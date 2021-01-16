@@ -10,7 +10,7 @@ namespace AlloyMvcTemplates.Infrastructure
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            if (!AdministratorRegistrationPageMiddleware.IsEnabled)
+            if (AdministratorRegistrationPageMiddleware.IsEnabled == false)
             {
                 context.Result = new NotFoundResult();
                 return;

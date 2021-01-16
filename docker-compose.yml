@@ -17,9 +17,9 @@ services:
       dockerfile: ./docker/Web.Dockerfile
       context: .
     ports:
-      - "${site_port}:80"
+      - "${site_port}:8000"
     environment:
-      ConnectionStrings__EPiServerDB: "Server=sql;Database=${database_name};User Id=sa;Password=${sa_password};"
+      ConnectionStrings__EPiServerDB: "Server=sql;Database=${database_name};User Id=sa;Password=${sa_password};MultipleActiveResultSets=True;"
     depends_on:
       - sql
     image: alloy/web:${web_tag}

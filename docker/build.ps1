@@ -1,7 +1,7 @@
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 #Install ssh client
-if((Get-WindowsCapability -Online | ? Name -like 'OpenSSH*')[0].State -ne "Installed"){
+if ((Get-WindowsCapability -Online | ? Name -like 'OpenSSH*')[0].State -ne "Installed") {
   Write-Host "Install openssh client"
   Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
 }
@@ -14,7 +14,7 @@ $webFileName = "alloy-web.tar"
 # At this moment, we only have 1 VM.
 # vnadmin is the username; 10.120.18.240 is the VM address; /home/vnadmin/Downloads is the location of downloaded file
 $vmAddress = "10.120.18.240"
-$vmUser =  "vnadmin"
+$vmUser = "vnadmin"
 #enter 'y' if you don't want to build sql image
 $skipSql = Read-Host "Skip building new sql image (y/n)"
 $enterDatabaseNameMessage = "Enter database name (default is $defaultDatabaseName)"
@@ -42,10 +42,6 @@ $env:sql_tag = $sqlTag
 #set password for sql server (you can change it here)
 $env:sa_password = "Your_password123"
 
-#publish AlloyMvcTemplates site, we will remove it later when alloy site is finished
-Write-Host "Publish Alloy site"
-dotnet publish ..\AlloyMvcTemplates.csproj -c Release -o ..\app\publish\  
-
 #build docker compose (change build command to up if you want to build then run images)
 Write-Host "Building docker images "
 if ($skipSql -eq 'y') { 
@@ -59,29 +55,29 @@ Write-Host "Copy docker-compose file and replace parameters"
 Copy-Item ..\docker-compose.yml -Destination .
 (Get-Content -path docker-compose.yml).replace('${sa_password}', $env:sa_password).replace('${database_name}', $env:database_name).replace('${web_tag}', $env:web_tag).replace('${sql_tag}', $env:sql_tag).replace('${site_port}', $env:site_port) | Set-Content docker-compose.yml
 
-Write-Host "Export docker images to files"
-$folderName = "$env:database_name$env:sql_tag"
 $zipFileName = "$folderName.zip"
-if (!($skipSql -eq 'y')) {
-  docker save -o $dbFileName alloy/db:$env:sql_tag
-}
-docker save -o $webFileName alloy/web:$env:web_tag
-
-Write-Host "Zip files"
-$zipFileArray = "docker-compose.yml", "$webFileName",".\run-script\*.*"
-if (!($skipSql -eq 'y')) {
-  $zipFileArray += "$dbFileName"
-}
-
-$compress = @{
-  Path             = $zipFileArray
-  CompressionLevel = "Optimal"
-  DestinationPath  = ".\$zipFileName"
-}
-Compress-Archive -Force @compress
-
 $confirmation = Read-Host "Do you want to upload $zipFileName file to VM (y/n)"
 if ($confirmation -eq 'y') {
+  Write-Host "Export docker images to files"
+  $folderName = "$env:database_name$env:sql_tag"
+
+  if (!($skipSql -eq 'y')) {
+    docker save -o $dbFileName alloy/db:$env:sql_tag
+  }
+  docker save -o $webFileName alloy/web:$env:web_tag
+
+  Write-Host "Zip files"
+  $zipFileArray = "docker-compose.yml", "$webFileName", ".\run-script\*.*"
+  if (!($skipSql -eq 'y')) {
+    $zipFileArray += "$dbFileName"
+  }
+  $compress = @{
+    Path             = $zipFileArray
+    CompressionLevel = "Optimal"
+    DestinationPath  = ".\$zipFileName"
+  }
+  Compress-Archive -Force @compress
+
   Write-Host "Upload to VM"
   scp ".\$zipFileName" ${vmUser}@${vmAddress}:/home/vnadmin/Downloads
   if ($skipSql -eq 'y') { 
@@ -90,15 +86,17 @@ if ($confirmation -eq 'y') {
   else {
     ssh ${vmUser}@${vmAddress} "cd Downloads/ && unzip $zipFileName -d ./$folderName  && cd $folderName && find . -name '*.sh' -type f | xargs dos2unix  && find . -name '*.sh' -type f | xargs chmod 777  && sudo -S ./build.sh && sudo -S ./stop.sh && sudo -S ./run.sh && exit"
   }
+
+  Write-Host "Clean up temp zip files"
+  Remove-Item -Force $zipFileName
+  if (!($skipSql -eq 'y')) {
+    Remove-Item -Force $dbFileName
+  }
+  Remove-Item -Force $webFileName
 }
 
 Write-Host "Clean up temp files"
 Remove-Item -Force "docker-compose.yml"
-Remove-Item -Force $zipFileName
-if (!($skipSql -eq 'y')) {
-  Remove-Item -Force $dbFileName
-}
-Remove-Item -Force $webFileName
 
 Write-Host "Successful"
 Read-Host -Prompt "Press Enter to exit"

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
+using EPiServer.Web;
+using AlloyTemplates.Helpers;
 
 namespace AlloyTemplates.Business.Rendering
 {
@@ -23,11 +25,10 @@ namespace AlloyTemplates.Business.Rendering
     public class ErrorHandlingContentRenderer : IContentRenderer
     {
         private readonly MvcContentRenderer _mvcRenderer;
-        private readonly bool _isDebugging;
+
         public ErrorHandlingContentRenderer(MvcContentRenderer mvcRenderer)
         {
             _mvcRenderer = mvcRenderer;
-            _isDebugging = Debugger.IsAttached;
         }
 
         /// <summary>
@@ -39,68 +40,28 @@ namespace AlloyTemplates.Business.Rendering
             {
                 await _mvcRenderer.RenderAsync(helper, contentData, templateModel);
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex) when (!Debugger.IsAttached)
             {
-                if (_isDebugging)
+                switch (ex)
                 {
-                    //If debug="true" we assume a developer is making the request
-                    throw;
+                    case NullReferenceException:
+                    case ArgumentException:
+                    case ApplicationException:
+                    case InvalidOperationException:
+                    case NotImplementedException:
+                    case IOException:
+                    case EPiServerException:
+                        HandlerError(helper, contentData, ex);
+                        break;
+                    default:
+                        throw;
                 }
-                HandlerError(helper, contentData, ex);
-            }
-            catch (ArgumentException ex)
-            {
-                if (_isDebugging)
-                {
-                    throw;
-                }
-                HandlerError(helper, contentData, ex);
-            }
-            catch (ApplicationException ex)
-            {
-                if (_isDebugging)
-                {
-                    throw;
-                }
-                HandlerError(helper, contentData, ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-                if (_isDebugging)
-                {
-                    throw;
-                }
-                HandlerError(helper, contentData, ex);
-            }
-            catch (NotImplementedException ex)
-            {
-                if (_isDebugging)
-                {
-                    throw;
-                }
-                HandlerError(helper, contentData, ex);
-            }
-            catch (IOException ex)
-            {
-                if (_isDebugging)
-                {
-                    throw;
-                }
-                HandlerError(helper, contentData, ex);
-            }
-            catch (EPiServerException ex)
-            {
-                if (_isDebugging)
-                {
-                    throw;
-                }
-                HandlerError(helper, contentData, ex);
             }
         }
 
         private void HandlerError(IHtmlHelper helper, IContentData contentData, Exception renderingException)
         {
-            if (helper.ViewContext?.HttpContext?.User?.HasEditAccess() ?? false)
+            if (helper.ViewContext.IsInEditMode())
             {
                 var errorModel = new ContentRenderingErrorModel(contentData, renderingException);
                 helper.RenderPartialAsync("TemplateError", errorModel).GetAwaiter().GetResult();

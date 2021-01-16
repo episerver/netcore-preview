@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using AlloyMvcTemplates.Infrastructure;
 using System.Threading.Tasks;
 using EPiServer.Authorization;
+using EPiServer.Framework.Security;
 
 namespace AlloyTemplates.Controllers
 {
@@ -33,7 +34,7 @@ namespace AlloyTemplates.Controllers
         // POST: /Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryReleaseToken]
         public async Task<ActionResult> Index(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -42,7 +43,7 @@ namespace AlloyTemplates.Controllers
                 if (result.Status == UIUserCreateStatus.Success)
                 {
                     await UIRoleProvider.CreateRoleAsync(AdminRoleName);
-                    await UIRoleProvider.AddUserToRolesAsync(result.User.Username, new string[] { AdminRoleName });
+                    await UIRoleProvider.AddUserToRolesAsync(result.User.Username, new string[] { AdminRoleName});
 
                     AdministratorRegistrationPageMiddleware.IsEnabled = false;
                     SetFullAccessToWebAdmin();

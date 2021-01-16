@@ -44,7 +44,7 @@ namespace AlloyTemplates.Controllers
             return View(model);
         }
 
-        private IEnumerable<IContent> FindPages(PageListBlock currentBlock)
+        private IEnumerable<PageData> FindPages(PageListBlock currentBlock)
         {
             IEnumerable<PageData> pages;
             var listRoot = currentBlock.Root;
@@ -79,13 +79,10 @@ namespace AlloyTemplates.Controllers
             return pages;
         }
 
-        private IEnumerable<IContent> Sort(IEnumerable<IContent> pages, FilterSortOrder sortOrder)
+        private IEnumerable<PageData> Sort(IEnumerable<PageData> pages, FilterSortOrder sortOrder)
         {
-            // ToDo: review what shoud we do impolements only in Alloy or remove obsolete?
-#pragma warning disable CS0618 // Type or member is obsolete
             var sortFilter = new FilterSort(sortOrder);
             sortFilter.Sort(new PageDataCollection(pages.ToList()));
-#pragma warning restore CS0618 // Type or member is obsolete
             return pages;
         }
     }

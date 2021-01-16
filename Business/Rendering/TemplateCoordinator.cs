@@ -68,7 +68,7 @@ namespace AlloyTemplates.Business.Rendering
 
             viewTemplateModelRegistrator.Add(typeof(ContactPage), new TemplateModel
             {
-                Name = "ContactPagePartialWide",
+                Name = "ContactPageWide",
                 Tags = new[] { Global.ContentAreaTags.TwoThirdsWidth, Global.ContentAreaTags.FullWidth },
                 AvailableWithoutTag = false,
             });

@@ -14,35 +14,10 @@ namespace AlloyMvcTemplates.Infrastructure
         private readonly RequestDelegate _next;
 
         private static bool _isFirstRequest = true;
-        private static bool _isLocalRequest = false;
-        private static string _registerUrl = VirtualPathResolver.Instance.ToAbsolute("~/Register");
-        private static Lazy<bool> _isAnyUserRegistered = new Lazy<bool>(IsAnyUserRegistered);
-        private static bool? _isEnabled = null;
+        private const string RegisterUrl = "/Register";
 
-
-        public static bool IsEnabled
-        {
-            get
-            {
-                if (_isEnabled.HasValue)
-                {
-                    return _isEnabled.Value;
-                }
-
-                var showUserRegistration = _isLocalRequest && !_isAnyUserRegistered.Value;
-                if (!showUserRegistration)
-                {
-                    _isEnabled = false;
-                }
-
-                return showUserRegistration;
-            }
-            set
-            {
-                _isEnabled = value;
-            }
-        }
-
+        public static bool? IsEnabled { get; set; }
+       
         public AdministratorRegistrationPageMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -51,30 +26,43 @@ namespace AlloyMvcTemplates.Infrastructure
 
         public async Task InvokeAsync(HttpContext context)
         {
-            if (_isFirstRequest)
-            {
-                _isLocalRequest = context.IsLocalRequest();
-                _isFirstRequest = false;
-            }
-
-            if (context.Request.Path.StartsWithSegments("/css/css.min.css") || context.Request.Path.StartsWithSegments("/js/script.min.js"))
+            if (!_isFirstRequest)
             {
                 await _next(context);
+                return;
             }
 
-            if (IsEnabled && !context.Request.Path.StartsWithSegments(_registerUrl))
+            _isFirstRequest = false;
+
+            if (!context.IsLocalRequest() || context.Request.Path != "/")
             {
-                context.Response.Redirect(_registerUrl);
+
+                await _next(context);
+                return;
+            }
+
+            if (!IsEnabled.HasValue)
+            {
+                IsEnabled = await UserDatabaseIsEmpty();
+            }
+
+            if (IsEnabled.Value)
+            {
+                context.Response.Redirect(RegisterUrl);
             }
 
             await _next(context);
         }
 
-        private static bool IsAnyUserRegistered()
+
+        private async Task<bool> UserDatabaseIsEmpty()
         {
             var provider = ServiceLocator.Current.GetInstance<UIUserProvider>();
-            var res = provider.GetAllUsersAsync(0, 1).ToListAsync().Result;
-            return res?.Count() > 0;
+            await foreach(var res in provider.GetAllUsersAsync(0, 1))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

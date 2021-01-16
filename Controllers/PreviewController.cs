@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using EPiServer.Core;
 using EPiServer.Framework.DataAnnotations;
 using EPiServer.Framework.Web;

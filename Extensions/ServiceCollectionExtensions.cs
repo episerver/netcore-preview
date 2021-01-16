@@ -2,7 +2,9 @@ using AlloyMvcTemplates.Business.Rendering;
 using AlloyTemplates;
 using AlloyTemplates.Business;
 using AlloyTemplates.Business.Channels;
+using EPiServer.Authorization;
 using EPiServer.Cms.Shell.UI.Approvals.Notifications;
+using EPiServer.DependencyInjection;
 using EPiServer.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -28,8 +30,6 @@ namespace AlloyMvcTemplates.Extensions
                displayOption.Add("narrow", "/displayoptions/narrow", Global.ContentAreaTags.OneThirdWidth, "", "epi-icon__layout--one-third");
             });
 
-            services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(IStartupFilter), typeof(AdministratorRegistrationStartupFilter)));
-            services.Configure<ApprovalNotificationOptions>(options => options.Immediate = false);
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add<PageContextActionFilter>();

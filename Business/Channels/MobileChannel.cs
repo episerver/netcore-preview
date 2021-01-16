@@ -1,4 +1,4 @@
-using EPiServer.DisplayChannels;
+using EPiServer.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Wangkanai.Detection;

@@ -1,18 +1,17 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using EPiServer.ServiceLocation;
+using AlloyMvcTemplates.Extensions;
+using AlloyMvcTemplates.Infrastructure;
+using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.Data;
 using EPiServer.DependencyInjection;
-using System.IO;
-using EPiServer.Cms.UI.AspNetIdentity;
-using AlloyMvcTemplates.Extensions;
-using EPiServer.Web.Routing;
-using EPiServer.Framework.Web.Resources;
+using EPiServer.ServiceLocation;
 using EPiServer.Web.Internal;
+using EPiServer.Web.Routing;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace EPiServer.Templates.Alloy.Mvc
 {
@@ -30,14 +29,13 @@ namespace EPiServer.Templates.Alloy.Mvc
         public void ConfigureServices(IServiceCollection services)
         {
             var dbPath = Path.Combine(_webHostingEnvironment.ContentRootPath, "App_Data\\Alloy.mdf");
-            var connectionstring = _configuration.GetConnectionString("EPiServerDB") ?? $"Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename={dbPath};Initial Catalog=alloy_netcore_preview;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
+            var connectionstring = _configuration.GetConnectionString("EPiServerDB") ?? $"Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename={dbPath};Initial Catalog=alloy_mvc_netcore;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
 
             services.Configure<DataAccessOptions>(o =>
             {
                 o.SetConnectionString(connectionstring);
             });
 
-            services.Configure<ClientResourceOptions>(o => o.Debug = true);
             services.AddCmsAspNetIdentity<ApplicationUser>(o =>
             {
                 if (string.IsNullOrEmpty(o.ConnectionStringOptions?.ConnectionString))
@@ -53,11 +51,6 @@ namespace EPiServer.Templates.Alloy.Mvc
             services.AddAlloy();
             services.AddCms();
 
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = "/Login";
-            });
-
             services.Configure<UIOptions>(uiOptions =>
             {
                 uiOptions.UIShowGlobalizationUserInterface = true;
@@ -71,6 +64,7 @@ namespace EPiServer.Templates.Alloy.Mvc
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMiddleware<AdministratorRegistrationPageMiddleware>();
             }
 
             app.UseStaticFiles();
