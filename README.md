@@ -2,7 +2,7 @@
 
 ## Netcore Preview
 
-This preview repository is early access to the latest Episerver packages targeting Netcore 5. Here we will collect feedback through github issues regarding specific issues when upgrading your addons or projects.
+This preview repository is early access to the latest Episerver packages targeting .NET 5. Here we will collect feedback through github issues regarding specific issues when upgrading your addons or projects.
 
 ---
 
@@ -25,31 +25,30 @@ For upgrades automatic schema update should be configured by default.
 
 ## Configuration
 
-Most of the configuration has been moved to options classes.  The options classes can be configured through code or the appsettings.json configuration file.  For option classes to be automatically configured from appsettings.jsobn, please use the EPiServer.ServiceLocation.OptionsAttribute.  There is a configsection which maps to the leaf node in the JSON.
+Most of the configuration has been moved to options classes.  The options classes can be configured through code or the appsettings.json configuration file.  For option classes to be automatically configured from `appsettings.json`, please use the `EPiServer.ServiceLocation.OptionsAttribute`.  There is a configsection which maps to the leaf node in the JSON.
 
-To utilize legacy configuration sections you can install the EPiServer.Cms.AspNetCore.Migration package.  This is available to ease migration, however we encourage to update the use options or appsettings.json if possible.
+To utilize legacy configuration sections you can install the `EPiServer.Cms.AspNetCore.Migration` package. This is available to ease migration, however we encourage to update the use options or `appsettings.json` if possible.
 
 ---
 
 ## Startup extensibility
 ### Program.cs
-EPiServer will by default use the built-in Dependency Injection framework (DI) in .net. To connect the DI framework with EPiServer you need to call extension method IHostBuilder.ConfigureCmsDefault() in Program.cs. <br/>
-To configure the application (including EPiServer) to use another DI framework you should call the extension method IHostBuilder.UseServiceProviderFactory. The example below shows how to configure the application to use Autofac:
+EPiServer will by default use the built-in Dependency Injection framework (DI) in .NET 5. To connect the DI framework with EPiServer you need to call extension method `IHostBuilder.ConfigureCmsDefault()` in Program.cs. <br/>
+To configure the application (including EPiServer) to use another DI framework you should call the extension method `IHostBuilder.UseServiceProviderFactory`. The example below shows how to configure the application to use Autofac:
 
 ```
 host.UseServiceProviderFactory(context => new  ServiceLocatorProviderFactoryFacade<ContainerBuilder>(context,
-    new AutofacServiceProviderFactory())); 
-
+    new AutofacServiceProviderFactory()));
 ```
 
 ### Startup.cs
 There are some added extensibility points when interacting with the Startup class.
-  1.  services.AddCms(); - This configures than CMS and needs to be called to function properly.
-  2.  endpoints.MapContent(); - This registers EPiServer content routing with the endpoint routing feature.
-  3.  IEndpointRoutingExtension - Access to the IEndpointRouteBuilder to register routes. Convience method services.AddEndpointRoutingExtension<T>()
-  4.  IStartupFilter - Access to IApplicationBuilder if you need to register middleware for instance.  Convience method services.AddStartupFilter<T>()
-  5.  IBlockingFirstRequestInitializer - Use this if you need to do something before the first request
-  6.  IRedirectingFirstRequestInitializer - Use this if you need to redirect to a page until some type of initialization takes place.
+  1.  `services.AddCms();` - This configures than CMS and needs to be called to function properly.
+  2.  `endpoints.MapContent();` - This registers EPiServer content routing with the endpoint routing feature.
+  3.  `IEndpointRoutingExtension` - Access to the `IEndpointRouteBuilder` to register routes. Convience method `services.AddEndpointRoutingExtension<T>()`
+  4.  `IStartupFilter` - Access to IApplicationBuilder if you need to register middleware for instance.  Convience method `services.AddStartupFilter<T>()`
+  5.  `IBlockingFirstRequestInitializer` - Use this if you need to do something before the first request
+  6.  `IRedirectingFirstRequestInitializer` - Use this if you need to redirect to a page until some type of initialization takes place.
 
 ---
 
