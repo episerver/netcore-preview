@@ -1,0 +1,134 @@
+﻿
+@model EPiServer.Reference.Commerce.Site.Features.Cart.ViewModels.LargeCartViewModel
+
+@{
+    Layout = null;
+}
+
+<h3>@Html.Translate("/Cart/Heading")</h3>
+
+<div class="checkout-cart jsLargeCart">
+    <ul class="list-unstyled">
+        @foreach (var shipment in Model.Shipments)
+        {
+            <li>
+                @foreach (var cartItem in shipment.CartItems)
+                {
+                    string productLevelClass = cartItem.DiscountedUnitPrice.HasValue ? "has-discount" : string.Empty;
+                    using (Html.BeginForm("ChangeCartItem", "Cart", FormMethod.Post, new { data_container = "MiniCart" }))
+                    {
+                        @Html.Hidden("shipmentId", shipment.ShipmentId)
+                        <div class="row cart-row @productLevelClass">
+                            <div class="col-xs-4 col-sm-2">
+                                <a href="@cartItem.Url"><img src="@cartItem.ImageUrl" alt="@cartItem.Code" class="product-image" /></a>
+                            </div>
+                            <div class="col-xs-8 col-sm-10">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <a href="@cartItem.Url" class="link--black">@cartItem.DisplayName</a>
+
+                                        <span class="product-brand xs-vertical-margin">@cartItem.Brand</span>
+                                        @if (cartItem.DiscountedUnitPrice.HasValue)
+                                        {
+                                            <span class="product-price">@{RenderMoney(cartItem.PlacedPrice);}</span>
+                                            <span class="product-price product-price--discount xs-vertical-margin">@{RenderMoney(cartItem.DiscountedUnitPrice.GetValueOrDefault());}</span>
+                                                }
+                                                else
+                                                {
+                                            <span class="product-price xs-vertical-margin">@{RenderMoney(cartItem.PlacedPrice);}</span>
+                                        }
+                                    </div>
+                                    <div class="col-sm-5">
+
+                                        <div class="row">
+                                            <div class="col-xs-6 xs-vertical-margin">
+                                                <strong>@Html.Translate("/ProductPage/Size")</strong><br />
+                                                @if (cartItem.IsGift)
+                                                {
+                                                    RenderSize(cartItem.Entry);
+                                                }
+                                                else
+                                                {
+                                                    RenderSizeDropDown(cartItem);                                                   }
+                                                }
+                                            </div>
+                                            <div class="col-xs-6 xs-vertical-margin">
+                                                <strong>@Html.Translate("/Cart/Labels/Quantity")</strong><br />
+                                                @if (cartItem.IsGift)
+                                                {
+                                                    @Html.TextBox("quantity", cartItem.Quantity.ToString("0"), new { @class = "form-control form-inline form-field--narrow jsChangeCartItem", disabled = "disabled" })
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBox("quantity", cartItem.Quantity.ToString("0"), new { @class = "form-control form-inline form-field--narrow jsChangeCartItem" })
+                                                }
+                                                @Html.Hidden("code", cartItem.Code)
+                                                @Html.Hidden("displayName", cartItem.DisplayName)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-1 product-col-remove">
+                                        @if (!cartItem.IsGift)
+                                        {
+                                            <button role="button" class="btn btn-gray-lighter btn-sm jsRemoveCartItem"><i class="glyphicon glyphicon-remove"></i></button>
+                                        }
+                                    </div>
+                                    <div class="col-xs-6 col-sm-2 product-col-price text-right">
+                                        @{RenderMoney(cartItem.DiscountedPrice.GetValueOrDefault());                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </li>
+        }
+    </ul>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        @if (Model.TotalDiscount.Amount > 0)
+        {
+            <span class="discount-applied">
+                @Html.Translate("/Cart/Labels/DiscountsApplied")
+            </span>
+            @Html.Translate("/Cart/Labels/YouSave")
+            <strong>@{RenderMoney(Model.TotalDiscount);}</strong>
+        }
+    </div>
+    <div class="col-xs-12 col-sm-6 text-right">
+        <h4>@Html.Translate("/Cart/Labels/Total")</h4>
+        @{RenderMoney(Model.Total);}
+    </div>
+</div>
+
+@{
+    void RenderMoney(Money money)
+    {
+        <span>
+            @Html.Raw(money.ToString().Replace(money.Currency.Format.CurrencySymbol, @"<span class=""product-price__currency-marker"">" + money.Currency.Format.CurrencySymbol + "</span>"))
+        </span>
+    }
+
+    void RenderSize(EntryContentBase content)
+    {
+        var variant = content as FashionVariant;
+        if (variant != null && variant.Size != null)
+        {
+            @Html.Hidden("size", variant.Size.Trim())
+            <span>@variant.Size</span>
+        }
+    }
+
+    void RenderSizeDropDown(CartItemViewModel cartItem)
+    {
+        var variant = cartItem.Entry as FashionVariant;
+        if (variant != null && variant.Size != null)
+        {
+            <span>
+                @Html.Hidden("size", variant.Size.Trim())
+                @Html.DropDownList("newSize", new SelectList(cartItem.AvailableSizes, variant.Size), new { @class = "form-control cart-control jsChangeCartItem" })
+            </span>
+        }
+    }
+}

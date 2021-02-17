@@ -1,0 +1,54 @@
+﻿@model EPiServer.Reference.Commerce.Site.Features.Search.ViewModels.SearchViewModel<EPiServer.Reference.Commerce.Site.Features.Product.Models.FashionNode>
+
+@{
+    if (this.Context.Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+<div class="container-fluid">
+    <div class="row category-page">
+        @using (Html.BeginForm("Index", "Category", FormMethod.Get, new { @class = "jsSearchForm" }))
+        {
+            @await Html.PartialAsync("_Facet", Model.FilterOption)
+            <div class="col-sm-9">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1>@Html.PropertyFor(x => x.CurrentContent.DisplayName)</h1>
+                        </div>
+                    </div>
+                </div>
+                @Html.Partial("_ProductList", Model.ProductViewModels)
+            </div>
+            <input class="jsSearchPage" hidden id="FilterOption_Page" name="FilterOption.Page" type="text" value="@(Model.FilterOption.Page + 1)" />
+            <input class="jsSelectedFacet" hidden id="FilterOption_SelectedFacet" name="FilterOption.SelectedFacet" type="text" />
+        }
+    </div>
+</div>
+
+@if (ShouldRenderTrackingSection())
+{
+    @section Tracking{
+        <script>
+        $(document).ready(function () {
+            var categoryCode = '@Model.CurrentContent.Code';
+            var categoryTrackingData = TrackingDataFactory.createCategoryTrackingData(categoryCode);
+            categoryTrackingData["customAttributes"] = { 'marketId': Market.getSelectedMarketId() };
+
+            epiRecommendations.track(categoryTrackingData, null, 'web', Recommendations.render, { sectionMappings: [{ area: "categoryWidget", selector: ".recommendations-bottom" }] });
+        });
+        </script>
+    }
+}
+
+@inject PersonalizationClientConfiguration _personalizationClientConfiguration
+@inject IContextModeResolver _contextModeResolver
+
+@functions
+{
+    public bool ShouldRenderTrackingSection()
+    {
+        return _personalizationClientConfiguration.TrackingEnabled && _contextModeResolver.CurrentMode != ContextMode.Edit;
+    }
+}

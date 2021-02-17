@@ -1,0 +1,27 @@
+﻿<div id="adyen-wrapper">
+    <div class="col-xs-12">
+        <div id="dropin-container"></div>
+    </div>
+
+    <input type="hidden" name="SystemKeyword" value="Adyen" />
+    <input type="hidden" id="additionalPaymentData[0].Key" name="additionalPaymentData[0].Key" value="" />
+    <input type="hidden" id="additionalPaymentData[0].Value" name="additionalPaymentData[0].Value" value="" />
+</div>
+<link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.20.0/adyen.css"
+      integrity="sha384-jXPa2gofpP6MkO/994dAS/W4pn9MgcK9IOebe5jKpnRmzMAvnxBspvqQVpU3jjIH"
+      crossorigin="anonymous">
+
+<script type="text/javascript" src="/js/adyen.js"></script>
+
+<script>
+    function loadAdyenCheckout() {
+        var newScript = document.createElement('script');
+        newScript.async = true;
+        newScript.src = 'https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.20.0/adyen.js';
+        newScript.onload = function () {
+            initAdyenCheckout($("#CartTotal").val() * 100, $("#CartCurrency").val());
+        };
+        document.children[0].appendChild(newScript);
+    }
+    loadAdyenCheckout();
+</script>

@@ -1,0 +1,11 @@
+﻿@{
+    if (this.Context.Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<div class="container-fluid" id="CheckoutView">
+    <h2>@Html.Translate("/Checkout/EmptyCart")</h2>
+</div>
+

@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<languages>
+  <language name="Swedish" id="sv">
+    <Header>
+      <Cookie>
+        <CookieUse>Vi använder cookies</CookieUse>
+        <Ok>Ok</Ok>
+      </Cookie>
+      <Search>
+        <Placeholder>sök</Placeholder>
+      </Search>
+      <Account>
+        <SignIn>Logga in</SignIn>
+        <SignOut>Logga ut</SignOut>
+      </Account>
+      <MiniCart>
+        <Button>
+          <Close>Stäng</Close>
+          <GoToCheckout>Fortsätt till utcheckningen</GoToCheckout>
+        </Button>
+      </MiniCart>
+      <Market>
+        <Labels>
+          <Market>Marknad</Market>
+          <Language>Språk</Language>
+          <Currency>Valutaslag</Currency>
+        </Labels>
+      </Market>
+      <PricesInformation>
+        <IncludeTax>Alla priser inklusive moms</IncludeTax>
+        <ExcludeTax>Alla priser exklusive moms</ExcludeTax>
+      </PricesInformation>
+    </Header>
+    <Facet>
+      <Choices>Artiklar:</Choices>
+      <Category>Kategori</Category>
+    </Facet>
+    <Footer>
+      <CompanyInformation>
+        <Header>Företagsinformation</Header>
+        <Text>Företagets information bör finnas här med minst ett par rader, så som org-nummer och en adress.</Text>
+      </CompanyInformation>
+      <Newsletter>
+        <Header>Anmäl dig till nyhetsbrev</Header>
+        <Button>Anmäl mig</Button>
+      </Newsletter>
+      <Legal>
+        <Header>Villkor</Header>
+      </Legal>
+    </Footer>
+    <Product>
+      <Quickview>Snabbtitt</Quickview>
+      <NotAvailable>Inte tillgänglig</NotAvailable>
+      <Dropdown>
+        <Currency>Visa priser i</Currency>
+      </Dropdown>
+      <Button>
+        <AddToCart>Lägg i kundvagn</AddToCart>
+        <AddToWishList>Till önskelista</AddToWishList>
+      </Button>
+    </Product>
+    <ProductPage>
+      <AddedToWishList>Lagd i önskelistan</AddedToWishList>
+      <NotAddedToWishList>Kunde inte lägga varan i önskelistan</NotAddedToWishList>
+      <Price>Pris</Price>
+      <Size>Storlek</Size>
+      <ListingPrice>Listpris</ListingPrice>
+      <DiscountedPrice>Rabatterat Pris</DiscountedPrice>
+      <PriceMissing>Inte tillgänglig för denna marknad</PriceMissing>
+      <VariationSelection>
+        <Color>Välj Färg</Color>
+        <Size>Välj Storlek</Size>
+      </VariationSelection>
+    </ProductPage>
+    <Warehouse>
+      <Availability>Produkten är tillgänglig i följande varuhus:</Availability>
+    </Warehouse>
+    <Checkout>
+      <EmptyCart>Din varukorg är tom.</EmptyCart>
+      <Coupons>
+        <Heading>Kuponger och Kampanjkoder</Heading>
+        <CouponCode>
+          <Info>Har du en rabattkod? Ange den för att ta del av erbjudandet.</Info>
+          <Button>Aktivera kod</Button>
+          <ErrorMessage>Rabattkoden du angav är ogiltig.</ErrorMessage>
+        </CouponCode>
+        <AppliedCoupons>
+          <Heading>Använda rabattkoder:</Heading>
+          <RemoveButton>Ta bort</RemoveButton>
+        </AppliedCoupons>
+      </Coupons>
+      <Continue>
+        <Button>Fortsätt shoppa</Button>
+      </Continue>
+      <Payment>
+        <Heading>Betalningsinformation</Heading>
+        <Labels>
+          <ChoosePayment>Välj betalning</ChoosePayment>
+        </Labels>
+        <Empty>
+          <ChoosePayment>Betalning krävs</ChoosePayment>
+        </Empty>
+        <Errors>
+          <PreProcessingFailure>Något blev fel för artikel {0} i din varukorg.</PreProcessingFailure>
+          <NoShippingRate>Ingen fraktkonstad finns för denna leverans.</NoShippingRate>
+          <RemovedDueToUnavailableItem>Artikel {0} är inte tillgänglig i butik och har därför tagits bort från din varukorg.</RemovedDueToUnavailableItem>
+          <RemovedDueToInsufficientQuantityInInventory>Artikel {0} är slutsåld och har därför tagits bort från din varukorg.</RemovedDueToInsufficientQuantityInInventory>
+          <RemovedDueToInvalidPrice>Artikel {0} har inget giltigt pris och har därför tagits bort från din varukorg.</RemovedDueToInvalidPrice>
+          <CannotProcessDueToMissingOrderStatus>Kan inte behandla artikel {0} på grund av saknad beställningsstatus.</CannotProcessDueToMissingOrderStatus>
+          <PlacedPricedChanged>Priset för artikel {0} har förändrats sedan den lades till din varukorg.</PlacedPricedChanged>
+          <AdjustedQuantity>Antalet av artikel {0} har förändrats.</AdjustedQuantity>
+          <ProcessingPaymentFailure>Behandlingen av din betalning misslyckades.</ProcessingPaymentFailure>
+        </Errors>
+        <Methods>
+          <CashOnDelivery>
+            <Description>Du betalar först när du hämtar ut din beställning på ditt närmaste postombud.</Description>
+          </CashOnDelivery>
+          <CreditCard>
+            <Labels>
+              <CreditCardName>Fullständigt namn på kortet:</CreditCardName>
+              <CreditCardNumber>Kreditkortsnummer:</CreditCardNumber>
+              <CreditCardSecurityCode>Säkerhetskod(CCV):</CreditCardSecurityCode>
+              <ExpirationMonth>Utgångsmånad:</ExpirationMonth>
+              <ExpirationYear>Utgångsår:</ExpirationYear>
+            </Labels>
+            <Empty>
+              <CreditCardName>Fullständigt namn krävs</CreditCardName>
+              <CreditCardNumber>Kreditkortsnummer krävs</CreditCardNumber>
+              <CreditCardSecurityCode>Säkerhetskod(CCV) krävs</CreditCardSecurityCode>
+              <ExpirationMonth>Utgångsmånad krävs</ExpirationMonth>
+              <ExpirationYear>Utgångsår krävs</ExpirationYear>
+            </Empty>
+            <ValidationErrors>
+              <CreditCardNumber>Kreditkortsnumret är felaktigt. Numret ska sluta med 4</CreditCardNumber>
+              <CreditCardSecurityCode>CSV-koden måste vara 3 siffror</CreditCardSecurityCode>
+              <ExpirationMonth>Utgångsdatumet kan inte vara äldre än nuvarande månad</ExpirationMonth>
+              <ExpirationYear>Utgångsdatumet kan inte vara äldre än nuvarande år</ExpirationYear>
+            </ValidationErrors>
+          </CreditCard>
+        </Methods>
+      </Payment>
+      <Billing>
+        <Heading>Faktureringsadress</Heading>
+        <Errors>
+          <EmptyEmail>Faktureringsadress: E-post krävs</EmptyEmail>
+        </Errors>
+      </Billing>
+      <Shipment>
+        <ShippingTo>Levereras till:</ShippingTo>
+        <SingleShipment>Leverera till bara en adress</SingleShipment>
+        <AlternativeAddress>Annan leveransadress</AlternativeAddress>
+        <Heading>Leveransadress</Heading>
+        <Labels>
+          <ChooseDelivery>Välj leveranssätt</ChooseDelivery>
+          <FreeOfCharge>Gratis</FreeOfCharge>
+        </Labels>
+        <Empty>
+          <ChooseDelivery>Leveranssätt krävs</ChooseDelivery>
+        </Empty>
+      </Shipment>
+      <OrderSummary>Varukorgen/Beställningssammandrag</OrderSummary>
+      <SubTotal>Delsumma för dina varor</SubTotal>
+      <OrderLevelDiscounts>Ytterligare rabatter</OrderLevelDiscounts>
+      <ShippingAndTax>Frakt &amp; skatt</ShippingAndTax>
+      <ShippingCost>Beräknade fraktkostnader</ShippingCost>
+      <ShippingSubtotal>Frakt Delsumma</ShippingSubtotal>
+      <ShippingTotal>Frakt totalt</ShippingTotal>
+      <ShippingDiscount>Frakt Rabatt</ShippingDiscount>
+      <TaxTotal>Skatt</TaxTotal>
+      <CartTotal>Totalt för varukorg</CartTotal>
+      <PlaceOrder>Lägg order</PlaceOrder>
+      <Address>
+        <Labels>
+          <FirstName>Förnamn:</FirstName>
+          <LastName>Efternamn:</LastName>
+          <Email>E-postadress:</Email>
+          <Address>Leveransadress:</Address>
+          <Country>Land:</Country>
+          <City>Stad:</City>
+          <ZipCode>Postnummer:</ZipCode>
+          <SaveAddress>Spara adress</SaveAddress>
+          <AddressId>Vald adress</AddressId>
+        </Labels>
+        <Empty>
+          <FirstName>Förnamn krävs</FirstName>
+          <LastName>Efternamn krävs</LastName>
+          <Email>E-postadress krävs</Email>
+          <Address>Leveransadress krävs</Address>
+          <Country>Land krävs</Country>
+          <City>Stad krävs</City>
+          <ZipCode>Postnummer krävs</ZipCode>
+        </Empty>
+      </Address>
+      <MultiShipment>
+        <Heading>Leverera till olika adresser</Heading>
+        <SubheadingFirst>Adresser behöver sparas i din</SubheadingFirst>
+        <SubheadingAddress>adressbok</SubheadingAddress>
+        <SubheadingSecond>innan de blir tillgängliga.</SubheadingSecond>
+        <Item>Vara</Item>
+        <Continue>Fortsätt</Continue>
+        <DeliveryAddress>Leveransadress</DeliveryAddress>
+        <SelectDeliveryAddress>Välj leveransadress</SelectDeliveryAddress>
+        <SelectAddress>Välj adress</SelectAddress>
+        <AddNewAddress>Lägg till ny adress</AddNewAddress>
+        <DeliveryOption>Välj fraktalternativ</DeliveryOption>
+        <NoAddressFound>Inga adresser finns</NoAddressFound>
+        <Empty>
+          <AddressId>Adress krävs</AddressId>
+        </Empty>
+      </MultiShipment>
+    </Checkout>
+    <OrderConfirmationMail>
+      <OrderDate>Orderdatum:</OrderDate>
+      <DisplayName>Visningsnamn</DisplayName>
+      <Discount>Rabatt</Discount>
+      <OrderLevelDiscounts>Ytterligare rabatter</OrderLevelDiscounts>
+      <Quantity>Antal</Quantity>
+      <UnitPrice>Styckespris</UnitPrice>
+      <Price>Pris</Price>
+      <LineItemTotal>Total</LineItemTotal>
+      <HandlingCost>Administrationsavgift</HandlingCost>
+      <TaxCost>Skattkostnader</TaxCost>
+      <ShippingCost>Fraktkostnader</ShippingCost>
+      <Total>Total</Total>
+      <ShippingDetails>Fraktdetaljer</ShippingDetails>
+      <PaymentDetails>Betalningsinformation</PaymentDetails>
+      <PaymentInfo>
+        <CardType>Korttyp</CardType>
+        <Owner>Ägare</Owner>
+        <CardNumber>Kortnummer</CardNumber>
+        <ExpirationDate>Utgångsdatum</ExpirationDate>
+        <CVV>CVV</CVV>
+      </PaymentInfo>
+      <ErrorMessages>
+        <SmtpFailure>Din order har behandlats men vi kunde inte skicka ditt kvitto till e-postaddressen {0}. Se till att skriva ut denna sida och behåll utskriften som referens istället.</SmtpFailure>
+      </ErrorMessages>
+    </OrderConfirmationMail>
+    <OrderConfirmation>
+      <SubTotal>Delsumma för din beställning</SubTotal>
+      <OrderLevelDiscounts>Ytterligare rabatter</OrderLevelDiscounts>
+      <ShippingAndTax>Frakt &amp; skatt</ShippingAndTax>
+      <ShippingCost>Beräknade fraktkostnader</ShippingCost>
+      <ShippingSubtotal>Frakt Delsumma</ShippingSubtotal>
+      <ShippingDiscount>Frakt Rabatt</ShippingDiscount>
+      <ShipmentCost>Frakt Kostnad</ShipmentCost>
+      <ShippingItemsTotal>Varor Totalt</ShippingItemsTotal>
+      <ShippingMethod>Fraktsätt</ShippingMethod>
+      <ShippingAddress>Fraktaddress</ShippingAddress>
+      <TaxTotal>Beräknad skatt </TaxTotal>
+      <CartTotal>Total för kundvagnen</CartTotal>
+      <BillingDetails>Faktureringsinformation</BillingDetails>
+      <ShippingDetails>Leveransadress</ShippingDetails>
+      <PaymentDetails>Betalningsinformation</PaymentDetails>
+      <NoOrder>Kan inte visa orderdetaljer i on-page-redigeringsläge tills åtminstone en order har skapats.</NoOrder>
+      <Labels>
+        <Product>Produkt</Product>
+        <Price>Ditt pris</Price>
+        <Quantity>Antal</Quantity>
+        <Total>Total</Total>
+        <Remove>Ta bort vara</Remove>
+        <DiscountsApplied>Tillämpade varurabatter</DiscountsApplied>
+        <YouSave>Du sparade</YouSave>
+      </Labels>
+      <PaymentInfo>
+        <CardType>Korttyp</CardType>
+        <Owner>Ägare</Owner>
+        <CardNumber>Kortnummer</CardNumber>
+        <ExpirationDate>Utgångsdatum</ExpirationDate>
+        <CVV>CVV</CVV>
+      </PaymentInfo>
+    </OrderConfirmation>
+    <Category>
+      <Sort>
+        <PriceAsc>Pris</PriceAsc>
+        <Popularity>Popularitet</Popularity>
+        <NewestFirst>Nyast först</NewestFirst>
+      </Sort>
+      <SortBy>Sortera på</SortBy>
+      <RemoveAll>Ta bort alla</RemoveAll>
+      <Filters>Filter</Filters>
+    </Category>
+    <Cart>
+      <Heading>Artiklar i din varukorg / som beställs</Heading>
+      <Labels>
+        <Product>Produkt</Product>
+        <Price>Ditt pris</Price>
+        <Quantity>Antal</Quantity>
+        <Total>Total</Total>
+        <Remove>Ta bort vara</Remove>
+        <DiscountsApplied>Tillämpade varurabatter</DiscountsApplied>
+        <YouSave>Du sparade</YouSave>
+      </Labels>
+    </Cart>
+    <Registration>
+      <Heading>Ny kund?</Heading>
+      <Done>Ditt konto {0} har skapats , kan du nu logga in!</Done>
+      <OrderConfirmation>
+        <Heading>Spara din information till nästa gång</Heading>
+        <Heading2>Du är redan registrerad, vill du binda din order till ditt konto?</Heading2>
+        <AccountCreatedHeading>Succé!</AccountCreatedHeading>
+        <AccountCreated>Ditt konto {0} har skapats och din beställning har lagts till ditt konto.</AccountCreated>
+        <OrderAddedHeading>Succé!</OrderAddedHeading>
+        <OrderAdded>Din beställning har lagts till ditt konto.</OrderAdded>
+        <Assign>Lägg order till kontot</Assign>
+      </OrderConfirmation>
+      <Form>
+        <Label>
+          <Email>E-post*:</Email>
+          <Password>Lösenord*:</Password>
+          <Password2>Lösenord igen*:</Password2>
+          <FirstName>Förnamn:</FirstName>
+          <LastName>Efternamn:</LastName>
+          <Address>Adress:</Address>
+          <Country>Land:</Country>
+          <City>Stad:</City>
+          <PostalCode>Postal code:</PostalCode>
+          <ZipCode>Postnummer:</ZipCode>
+          <Submit>Skapa ett konto</Submit>
+          <AcceptMarketingEmail>Skicka mig e-postuppdateringar om de senaste produkterna och kampanjer.</AcceptMarketingEmail>
+        </Label>
+        <Empty>
+          <Address>En adress krävs</Address>
+          <Country>Land krävs</Country>
+          <City>Stad krävs</City>
+          <PostalCode>Postadress krävs</PostalCode>
+          <Email>E-post krävs</Email>
+          <Password>Lösenord krävs</Password>
+          <Password2>Lösenord2 krävs</Password2>
+        </Empty>
+        <Error>
+          <InvalidEmail>Du måste ange en giltig e-postadress</InvalidEmail>
+          <UsedEmail>Den här e-postadressen används redan</UsedEmail>
+          <PasswordMatch>Dina lösenord måste matcha</PasswordMatch>
+          <PasswordLength>Ditt lösenord måste vara mellan 5 och 100 tecken långt</PasswordLength>
+          <PasswordLength2>Ditt lösenord måste vara mellan 5 och 100 tecken långt</PasswordLength2>
+        </Error>
+      </Form>
+    </Registration>
+    <Login>
+      <Form>
+        <Label>
+          <AddressRequirementMessage>För att kunna färdigställa din adress behöver vi veta din adress.</AddressRequirementMessage>
+          <SocialLoginLabel>Logga in med {0}</SocialLoginLabel>
+          <Username>Användarnamn:</Username>
+          <Heading>Redan kund?</Heading>
+          <LoginMessage>Logga in med ditt konto.</LoginMessage>
+          <Email>E-post:</Email>
+          <Password>Lösenord:</Password>
+          <RememberMe>Kom ihåg mig</RememberMe>
+          <Login>Logga in</Login>
+          <ForgotPasswordLink>Glömt ditt lösenord?</ForgotPasswordLink>
+        </Label>
+        <Empty>
+          <Username>Användarnamn krävs</Username>
+          <Email>E-post krävs</Email>
+          <Password>Lösenord krävs</Password>
+        </Empty>
+        <Error>
+          <WrongPasswordOrEmail>Du skrev in fel användarnamn eller lösenord</WrongPasswordOrEmail>
+          <InvalidEmail>Du måste ange en giltig e-postadress</InvalidEmail>
+          <PasswordLength>Ditt lösenord måste vara mellan 5 och 100 tecken långt</PasswordLength>
+        </Error>
+      </Form>
+      <ExternalLoginFailure>
+        <Heading>Kunde inte logga in</Heading>
+        <Message>Ett fel uppstod när ditt användarkonto skulle verifieras.</Message>
+      </ExternalLoginFailure>
+      <Lockout>
+        <Heading>Ditt användarkonto är låst</Heading>
+        <Message>Som en säkerhetsåtgärd har ditt konto låsts på grund av för många felaktiga inloggningsförsök. Vänligen återkom och försök igen lite senare.</Message>
+      </Lockout>
+      <Unapproved>
+        <Heading>Ditt konto har inte blivit godkänt av en administratör.</Heading>
+        <Message>Var god kontakta en administratör för mer information.</Message>
+      </Unapproved>
+      <BackendLogin>
+        <Heading>Redigerarvy</Heading>
+        <LoginMessage>
+          För att komma till den plats du begärt behöver du logga in med ditt användarkonto.
+        </LoginMessage>
+      </BackendLogin>
+    </Login>
+    <Consent>
+      <Header>Integritet</Header>
+      <AcceptMarketingEmail>Skicka mig e-postuppdateringar om de senaste produkterna och kampanjer.</AcceptMarketingEmail>
+      <Updated>Senast uppdaterad:</Updated>
+      <NotConfirm>Du har inte godkänt dina integritetsinställningar än.</NotConfirm>
+      <Form>
+        <Edit>Ändra</Edit>
+        <Submit>Spara</Submit>
+      </Form>
+    </Consent>
+    <ResetPassword>
+      <Mail>
+        <Text>Återställ ditt lösenord genom att klicka på den här </Text>
+        <Link>länken</Link>
+        <Instructions>Ange meddelande för återställning av lösenord och använd platshållaren [MailUrl] där du vill att länken för återställning skall infogas.</Instructions>
+      </Mail>
+      <ForgotPasswordConfirmation>
+        <Heading>Halvvägs framme...</Heading>
+        <Message>För att återställa ditt lösenord, titta i din e-post inkorg.</Message>
+      </ForgotPasswordConfirmation>
+      <ResetPassword>
+        <Heading>Återställ lösenord</Heading>
+        <Message>Ange din e-postadress och ett nytt lösenord.</Message>
+      </ResetPassword>
+      <ResetPasswordConfirmation>
+        <Heading>Lösenordet har återställts</Heading>
+        <Message>Klar. Ditt lösenord har uppdaterats och du kan nu </Message>
+        <LoginLink>klicka här för att logga in.</LoginLink>
+      </ResetPasswordConfirmation>
+      <Form>
+        <Placeholder>
+          <Email>Ange din e-postadress</Email>
+          <Password>Lösenord</Password>
+          <Password2>Upprepa lösenordet</Password2>
+        </Placeholder>
+        <Label>
+          <Email>E-post:</Email>
+          <Password>Nytt lösenord:</Password>
+          <Password2>Nytt lösenord igen:</Password2>
+          <Send>Skicka</Send>
+          <Reset>Återställ</Reset>
+        </Label>
+        <Empty>
+          <Email>E-post krävs</Email>
+          <Password>Lösenord krävs</Password>
+          <Password2>Du måste upprepa ditt lösenord</Password2>
+        </Empty>
+        <Error>
+          <ExpiredLink>Din länk har upphört att gälla!</ExpiredLink>
+          <InvalidEmail>Du måste ange en giltig e-postadress</InvalidEmail>
+          <PasswordMatch>Dina lösenord måste matcha</PasswordMatch>
+          <PasswordLength>Ditt lösenord måste vara mellan 5 och 100 tecken långt</PasswordLength>
+          <PasswordLength2>Ditt lösenord måste vara mellan 5 och 100 tecken långt</PasswordLength2>
+        </Error>
+      </Form>
+    </ResetPassword>
+    <AddressBook>
+      <AddNew>
+        <Header>Lägg till en ny adress</Header>
+        <Button>Spara</Button>
+        <CancelButton>Avbryt</CancelButton>
+      </AddNew>
+      <Edit>
+        <Header>Ändra adress</Header>
+      </Edit>
+      <Available>Befintliga Adresser</Available>
+      <IncompletAddress>Ofullständig adress</IncompletAddress>
+      <Form>
+        <Label>
+          <SetShippingAddress>Ange som standardleveransadress</SetShippingAddress>
+          <SetBillingAddress>Ange som standardfaktureringsadress</SetBillingAddress>
+          <AddressName>Adressnamn *:</AddressName>
+          <Organization>Organisation</Organization>
+          <FirstName>Förnamn *:</FirstName>
+          <LastName>Efternamn *:</LastName>
+          <Line1>Adressrad 1 *:</Line1>
+          <Line2>Adressrad 2 :</Line2>
+          <City>Stad *:</City>
+          <CountryRegion>CountryRegion</CountryRegion>
+          <PostalCode>Postnummer *:</PostalCode>
+          <CountryCode>Land *:</CountryCode>
+          <DaytimePhoneNumber>Telefonnummer:</DaytimePhoneNumber>
+          <Email>E-post:</Email>
+          <Submit>Spara</Submit>
+          <Delete>Radera</Delete>
+          <Edit>Ändra</Edit>
+          <Cancel>Avbryt</Cancel>
+          <EditAddress>Ändra</EditAddress>
+          <NewAddress>Ny</NewAddress>
+          <PrimaryAddress>Primär adress</PrimaryAddress>
+          <RemoveAddress>Ta bort</RemoveAddress>
+          <Address>Adress</Address>
+          <Name>Namn</Name>
+          <DateModified>Ändrad</DateModified>
+        </Label>
+        <Empty>
+          <Name>Adressnamn krävs</Name>
+          <FirstName>Förnamn krävs</FirstName>
+          <LastName>Efternamn krävs</LastName>
+          <Line1>Adressrad1 krävs</Line1>
+          <City>Stad krävs</City>
+          <CountryRegion>CountryRegion krävs</CountryRegion>
+          <PostalCode>Postnummer krävs</PostalCode>
+          <CountryCode>Land krävs</CountryCode>
+        </Empty>
+        <Error>
+          <InvalidEmail>Du måste ange en giltig e-postadress</InvalidEmail>
+          <ExistingAddress>En adress med samma namn finns redan</ExistingAddress>
+        </Error>
+      </Form>
+    </AddressBook>
+    <OrderHistory>
+      <Labels>
+        <ShippedTo>Levererat till</ShippedTo>
+        <ObjectsOrdered>Beställda varor</ObjectsOrdered>
+        <OrderID>Order ID:</OrderID>
+        <OrderDate>Orderdatum:</OrderDate>
+        <Payment>Betalning:</Payment>
+        <Status>Status:</Status>
+        <TotalPrice>Totalpris:</TotalPrice>
+      </Labels>
+    </OrderHistory>
+    <WishList>
+      <Button>
+        <GotoWishListPage>Gå till din önskelista</GotoWishListPage>
+      </Button>
+      <NoItems>Du har inga artiklar i din önskelista</NoItems>
+      <DeleteButton>Radera hela önskelistan</DeleteButton>
+      <RemoveItem>Ta bort från önskelista</RemoveItem>
+    </WishList>
+    <Search>
+      <BadFirstCharacter>'*' eller '?' är inte tillåtet som första tecken i en sökning</BadFirstCharacter>
+    </Search>
+    <Shared>
+      <Common>
+        <DeleteItemConfirmation>Vill du radera den här artikeln?</DeleteItemConfirmation>
+      </Common>
+      <Address>
+        <DefaultAddressName>Standard</DefaultAddressName>
+        <NewAddress>Ny adress</NewAddress>
+        <RemoveAddress>Ta bort</RemoveAddress>
+        <Form>
+          <Empty>
+            <FirstName>Förnamn krävs</FirstName>
+            <LastName>Efternamn krävs</LastName>
+            <Line1>Leveransadress krävs</Line1>
+            <CountryCode>Land krävs</CountryCode>
+            <City>Stad krävs</City>
+            <PostalCode>Postnummer krävs</PostalCode>
+            <Email>Email krävs</Email>
+            <Name>Namn krävs</Name>
+            <BillingAddress>Faktureringsadress krävs</BillingAddress>
+            <ShippingAddress>Leveransadress krävs</ShippingAddress>
+            <ShippingMethod>Fraktalternativ krävs</ShippingMethod>
+          </Empty>
+          <Label>
+            <FirstName>Förnamn *:</FirstName>
+            <LastName>Efternamn *:</LastName>
+            <Line1>Adressrad 1 *:</Line1>
+            <Line2>Adressrad 2:</Line2>
+            <City>Stad *:</City>
+            <CountryRegion>CountryRegion:</CountryRegion>
+            <PostalCode>Postnummer *:</PostalCode>
+            <CountryCode>Land :</CountryCode>
+            <Address>Address *:</Address>
+            <Name>Namn *:</Name>
+            <ShippingAddress>Standardleveransadress</ShippingAddress>
+            <BillingAddress>Standardfaktureringsadress</BillingAddress>
+            <DaytimePhoneNumber>Telefonnummer:</DaytimePhoneNumber>
+            <Email>E-post:</Email>
+          </Label>
+          <Error>
+            <InvalidEmail>Du måste ange en giltig e-postadress</InvalidEmail>
+            <InvalidInput>Formatet för det angivna värdet är ogiltigt, undvik att använda &lt; fras &gt;</InvalidInput>
+          </Error>
+        </Form>
+      </Address>
+    </Shared>
+    <Readonly>
+      <Message>Underhållsarbete utförs på webbplatsen. Vissa funktioner är avstängda tills arbetet är slutfört.</Message>
+      <Login>Inloggningen är tillfälligt avstängd medan underhållsarbete utförs på webbplatsen.</Login>
+    </Readonly>
+    <StartPage>
+      <Promotion>
+        <AllItems>Gäller alla artiklar</AllItems>
+      </Promotion>
+    </StartPage>
+    <ProductRecommendations>
+      <Label>
+        <RecommendedProducts>Rekommenderade produkter</RecommendedProducts>
+      </Label>
+    </ProductRecommendations>
+  </language>
+</languages>

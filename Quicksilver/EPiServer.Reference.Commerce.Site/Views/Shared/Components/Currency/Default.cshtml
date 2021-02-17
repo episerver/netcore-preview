@@ -1,0 +1,5 @@
+﻿@model EPiServer.Reference.Commerce.Site.Features.Market.ViewModels.CurrencyViewModel
+@using (Html.BeginForm("Set", "Currency"))
+{
+    @Html.DropDownListFor(x => x.CurrencyCode, Model.Currencies, new { @class = "form-control input-sm jsCurrencySelector" })
+}

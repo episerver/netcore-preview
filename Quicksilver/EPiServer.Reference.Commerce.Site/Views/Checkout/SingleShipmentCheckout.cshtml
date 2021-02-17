@@ -1,0 +1,121 @@
+﻿@model EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels.CheckoutViewModel
+@{
+    if (this.Context.Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<div class="container-fluid" id="CheckoutView" data-url="@Url.Action("Index")">
+
+    <div class="row section-box checkout jsCheckout">
+        <div class="col-xs-12 col-sm-6">
+            <h2>@Html.PropertyFor(x => x.CurrentPage.Name)</h2>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            @if (Model.CurrentPage.MultiShipmentPage != null)
+            {
+                <a class="btn btn-primary pull-right" href="@Url.ContentUrl(Model.CurrentPage.MultiShipmentPage)">@Html.Translate("/Checkout/MultiShipment/Heading")</a>
+            }
+        </div>
+    </div>
+    <div class="row section-box">
+        <div class="col-xs-12">
+            <h4>@Html.Translate("/Checkout/Coupons/Heading")</h4>
+            <p class="small">@Html.Translate("/Checkout/Coupons/CouponCode/Info")</p>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-inline discount">
+                        <div class="input-group">
+                            <input type="text" class="form-control form--blue" id="inputCouponCode">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default btn--blue js-add-couponcode" data-url="@Url.Action("AddCouponCode", "Checkout", null)">
+                                    @Html.Translate("/Checkout/Coupons/CouponCode/Button")
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger couponcode-errormessage" style="display: none">
+                        <p>@Html.Translate("/Checkout/Coupons/CouponCode/ErrorMessage")</p>
+                    </div>
+                    @if (Model.AppliedCouponCodes != null && Model.AppliedCouponCodes.Any())
+                    {
+                        <div class="col-xs-12">
+                            <h5>@Html.Translate("/Checkout/Coupons/AppliedCoupons/Heading")</h5>
+                            <ul>
+                                @foreach (var couponCode in Model.AppliedCouponCodes)
+                                {
+                                    <li>
+                                        @Html.Label(couponCode)
+                                        @Html.ActionLink(LocalizationService.Current.GetString("/Checkout/Coupons/AppliedCoupons/RemoveButton"), "RemoveCouponCode", "Checkout", new { @class = "btn btn-danger btn-xs js-remove-couponcode" })
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                </div>
+                <div class="col-xs-12 col-md-6 keep-shopping-col">
+                    <button role="button" onclick="window.location.href='@Model.ReferrerUrl'" class="btn btn-default btn--blue"><i class="glyphicon glyphicon-arrow-left"></i> @Html.Translate("/Checkout/Continue/Button")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row section-box">
+        <div class="col-xs-12">
+            @await Component.InvokeAsync("Cart")
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <div class="alert alert-warning">
+            @Model.Message
+        </div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var item in ViewData.ModelState)
+            {
+                foreach (var error in item.Value.Errors)
+                {
+                    <p>@error.ErrorMessage</p>
+                }
+            }
+        </div>
+    }
+
+<form class="jsCheckoutForm" action="@Url.Action("Purchase", "Checkout")" method="post" novalidate data-updateurl="@Url.Action("Update", null, null)">
+
+    <h2>@Html.Translate("/Checkout/Payment/Heading")</h2>
+    <div class="row section-box">
+        <div id="billingAddressContainer" class="col-md-6 col-xs-12">
+            @{ Html.RenderPartial("BillingAddress", Model); }
+        </div>
+    </div>
+    <h2>@Html.Translate("/Checkout/Shipment/Heading")</h2>
+    <div class="row section-box">
+        <div class="col-xs-12">
+            @{ Html.RenderPartial("SingleShippingAddress", Model); }
+        </div>
+    </div>
+
+    <div class="row section-box">
+        <div class="col-xs-12">
+            @await Component.InvokeAsync("Checkout")
+        </div>
+
+        <div class="col-md-12 col-xs-12">
+            @await Component.InvokeAsync("Payment", new { paymentMethodId = Model.Payment?.PaymentMethodId ?? Guid.Empty })
+        </div>
+
+        <div>
+            <button type="submit" id="submit-btn" class="btn btn-primary btn--blue pull-right">@Html.Translate("/Checkout/PlaceOrder")</button>
+        </div>
+    </div>
+
+    <input type="hidden" name="currentPageReference" value="@Model.CurrentPage.ContentLink.ToString()" />
+</form>
+</div>

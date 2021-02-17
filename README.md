@@ -13,14 +13,53 @@ This preview repository has a nuget.config with the location to the packages.  I
 
 ---
 
-## Database Installation
+## Template Installation
 
-This sample alloy site is configured to use localdb by default.  LocalDB is only supported on windows machines.  If you want to install the database to a server, please use the sql script found in the prospective locations.  Nuget uses a global cache when not using packages.config.  Note you will need to install commerce.core to have the package download to the global cache.
-  1.  C:\Users\{username}\.nuget\packages\episerver.cms.core\12.0.0-inte-014599\tools
-  2.  C:\Users\{username}\.nuget\packages\episerver.commerce.core\12.0.0-inte-014599\tools
+```
+dotnet new -i EPiServer.Net.Templates::1.0.0-inte-017362 --nuget-source https://pkgs.dev.azure.com/EpiserverEngineering/netCore/_packaging/beta-program/nuget/v3/index.json --force
+```
+---
 
-For upgrades automatic schema update should be configured by default.  
+## CLI Installation
 
+```
+dotnet tool install EPiServer.Net.Cli --global --add-source https://pkgs.dev.azure.com/EpiserverEngineering/netCore/_packaging/beta-program/nuget/v3/index.json --version 1.0.0-inte-017362
+```
+---
+
+## Create empty cms site
+
+```
+dotnet new epicmsempty --name ProjectName
+cd projectname
+dotnet-episerver create-cms-database ProjectName.csproj -S . -E 
+
+```
+
+Right now there is no command to create the admin user, we plan to add in the future.  You can check Quicksilver\EPiServer.Reference.Commerce.Site\Infrastructure\UsersInstaller.cs if you want to automate in the short term.
+---
+
+## Create empty commerce site
+
+```
+dotnet new epicommerceempty --name ProjectName
+cd projectname
+dotnet-episerver create-cms-database ProjectName.csproj -S . -E
+dotnet-episerver create-commerce-database ProjectName.csproj -S . -E --reuse-cms-user
+```
+
+Right now there is no command to create the admin user, we plan to add in the future.  You can check Quicksilver\EPiServer.Reference.Commerce.Site\Infrastructure\UsersInstaller.cs if you want to automate in the short term.
+---
+
+## Create alloy site
+
+```
+dotnet new epicmsalloy --name ProjectName
+cd projectname
+dotnet-episerver create-cms-database ProjectName.csproj -S . -E
+```
+
+Alloy has a middleware to create the administration user.
 ---
 
 ## Configuration

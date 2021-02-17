@@ -1,0 +1,56 @@
+//
+// Footer
+// --------------------------------------------------
+// Styling for the page footer (not including cookies, which is found in main.less)
+
+footer {
+    background: @gray-dark;
+    bottom: 0;
+    color: #fff;
+    font-size: @font-size-small;
+    left: 0;
+    position: absolute;
+    width: 100%;
+
+    h3 { font-size: @font-size-h4; }
+    .btn-social {
+        color: #fff;
+        font-size: @font-size-h6;
+        padding-left: 30px;
+
+        .fa {
+            border: none;
+            width: auto;
+        }
+    }
+}
+
+// Palm and up
+@media (max-width: @screen-xs-max) {
+    @footer-height: 300px;
+    body { margin-bottom: @footer-height + 80px; }
+
+    footer {
+        height: @footer-height;
+        padding: @padding-large-vertical*2 0;
+
+        .column {
+            margin: @padding-large-vertical 0;
+        }
+    }
+}
+
+// Lap and up
+@media (min-width: @screen-sm-min) {
+    @footer-height: 170px;
+    body { margin-bottom: @footer-height + 80px; }
+
+    footer {
+        height: @footer-height;
+        padding: @padding-large-vertical*4 0;
+
+        .column {
+            padding: 0 @padding-large-vertical * 3;
+        }
+    }
+}

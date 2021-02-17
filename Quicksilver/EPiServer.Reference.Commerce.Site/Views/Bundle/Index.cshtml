@@ -1,0 +1,116 @@
+﻿@model EPiServer.Reference.Commerce.Site.Features.Product.ViewModels.FashionBundleViewModel
+
+<div class="row jsProductDetails">
+    <div class="col-xs-12 col-sm-4 col--leading">
+        <div id="product-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+                @for (var i = 0; i < Model.Images.Count; i++)
+                {
+                    <div class="item" data-slide-number="@i">
+                        <img src="@Model.Images.ElementAt(i)" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row" id="carousel-thumbs">
+            <ul class="carousel-thumbs js-carousel-thumbs">
+                @for (var i = 0; i < Model.Images.Count; i++)
+                {
+                    <li class="col-xs-3">
+                        <a href="#" class="thumbnail js-thumbnail" id="@i"><img src="@Model.Images.ElementAt(i)" /></a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-8 product-info">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>@Html.PropertyFor(x => x.Bundle.DisplayName)</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.PropertyFor(x => x.Bundle.Description)
+                <p>
+                    <strong>SKU:</strong> @Html.PropertyFor(x => x.Bundle.Code)
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7">
+                @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post, new { @class = "form-inline", data_container = "MiniCart" }))
+                {
+                    @Html.Hidden("code", Model.Bundle.Code)
+                    <button type="submit" role="button" class="btn btn-primary jsAddToCart" data-container="MiniCart"><span class="glyphicon glyphicon-shopping-cart"></span> @Html.Translate("/Product/Button/AddToCart")</button>
+                }
+                @if (User.Identity.IsAuthenticated && !(bool)ViewData["IsReadOnly"])
+                {
+                    using (Html.BeginForm("AddToCart", "WishList", FormMethod.Post, new { @class = "form-inline jsAddToWishList", data_container = "WishListMiniCart" }))
+                    {
+                        @Html.Hidden("code", Model.Bundle.Code)
+                        <button type="submit" role="button" class="btn btn-default btn--blue jsAddToCart" data-container="WishListMiniCart"><span class="glyphicon glyphicon-heart"></span> @Html.Translate("/Product/Button/AddToWishList")</button>
+                    }
+                }
+            </div>
+            <div id="CartWarningMessage" class="col-md-5 col-xs-12 alert alert-danger pull-right" hidden>
+                <button type="button" class="close" data-hide="alert">&times;</button>
+                <span class="warning-message"></span>
+            </div>
+        </div>
+        <div class="warehouse-availability-container"
+             data-url="@Url.Action("GetAvailability", "Warehouse")"
+             data-sku-code="@Model.Bundle.Code"></div>
+    </div>
+</div>
+
+@section Meta {
+    @{
+        if (!String.IsNullOrEmpty(Model.Bundle.SeoInformation.Description))
+        {
+            <meta property="description" content="@HttpUtility.HtmlAttributeEncode(Model.Bundle.SeoInformation.Description)" />
+        }
+        else if (Model.Bundle.Description != null && !Model.Bundle.Description.IsEmpty)
+        {
+            <meta property="description" content="@HttpUtility.HtmlAttributeEncode(Model.Bundle.Description.ToHtmlString())" />
+        }
+        if (!String.IsNullOrEmpty(Model.Bundle.SeoInformation.Keywords))
+        {
+            <meta property="keywords" content="@HttpUtility.HtmlAttributeEncode(Model.Bundle.SeoInformation.Keywords)" />
+        }
+    }
+}
+
+@if (ShouldRenderTrackingSection())
+{
+    @section Tracking{
+        <script>
+            $(document).ready(function () {
+                var refCode = '@Model.Bundle.Code';
+                var productName = '@Model.Bundle.Name';
+                var productTrackingData = TrackingDataFactory.createProductTrackingData(refCode, productName);
+
+                var recommendationId = parseInt(isNaN('@this.Context.Request.Query["recommendationId"]') ? '0' : '@this.Context.Request.Query["recommendationId"]');
+                if (recommendationId > 0) {
+                     productTrackingData["recommendationId"] = recommendationId;
+                }
+
+                productTrackingData["customAttributes"] = { 'marketId': Market.getSelectedMarketId() };
+
+                epiRecommendations.track(productTrackingData, null, 'web', Recommendations.render, { sectionMappings: [{ area: "productAlternativesWidget", selector: ".recommendations-right", numberOfItemsToRender: 2 }, { area: "productCrossSellsWidget", selector: ".recommendations-bottom" }] });
+            });
+        </script>
+    }
+}
+
+@inject PersonalizationClientConfiguration _personalizationClientConfiguration
+@inject IContextModeResolver _contextModeResolver
+
+@functions
+{
+    public bool ShouldRenderTrackingSection()
+    {
+        return _personalizationClientConfiguration.TrackingEnabled && _contextModeResolver.CurrentMode != ContextMode.Edit;
+    }
+}

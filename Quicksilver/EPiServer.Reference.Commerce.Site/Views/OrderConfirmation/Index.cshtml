@@ -1,0 +1,178 @@
+﻿@using EPiServer.Commerce.Order
+@using EPiServer.Reference.Commerce.Site.Features.Shared.Extensions
+@using EPiServer.Reference.Commerce.Site.Features.Checkout.Pages
+@model EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels.OrderConfirmationViewModel<OrderConfirmationPage>
+
+<div class="row checkout">
+    <div class="col-md-12">
+        <h1>@Html.PropertyFor(x => x.CurrentPage.Title)</h1>
+        <h2>@Html.Translate("/OrderHistory/Labels/OrderID") @Model.OrderId</h2>
+        @Html.Translate("/OrderHistory/Labels/OrderDate") @Model.Created
+        @if (Model.NotificationMessage != null)
+        {
+            <div class="alert alert-danger">
+                @Model.NotificationMessage
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row checkout">
+
+    <div class="col-md-12">
+
+        @if (Model.HasOrder)
+        {
+            foreach (var shipment in Model.Shipments)
+            {
+                <div class="row hidden-xs hidden-sm">
+                    <div class="col-md-7">@Html.Translate("/OrderConfirmation/Labels/Product")</div>
+                    <div class="col-md-1 text-right">@Html.Translate("/OrderConfirmation/Labels/Quantity")</div>
+                    <div class="col-md-1 text-right">@Html.Translate("/OrderConfirmationMail/UnitPrice")</div>
+                    <div class="col-md-1 text-right">@Html.Translate("/OrderConfirmationMail/Price")</div>
+                    <div class="col-md-1 text-right">@Html.Translate("/OrderConfirmationMail/Discount")</div>
+                    <div class="col-md-1 text-right">@Html.Translate("/OrderConfirmation/Labels/Total")</div>
+                </div>
+
+                foreach (ILineItem lineItem in shipment.LineItems)
+                {
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-1 col-xs-3">
+                            <a href="@lineItem.GetUrl()" class="link--black"><img src="@lineItem.GetThumbnailUrl()" /></a>
+                        </div>
+                        <div class="col-md-6 col-xs-9">
+                            <a href="@lineItem.GetUrl()" class="link--black">@lineItem.GetEntryContent().DisplayName</a>
+                        </div>
+                        <div class="col-md-1 col-xs-12 text-right">
+                            <label class="col-xs-8 visible-xs visible-sm">@Html.Translate("/OrderConfirmation/Labels/Quantity")</label>
+                            @lineItem.Quantity.ToString("0")
+                        </div>
+                        <div class="col-md-1 col-xs-12 text-right">
+                            <label class="col-xs-8 visible-xs visible-sm text-right">@Html.Translate("/OrderConfirmationMail/UnitPrice")</label>
+                            @{RenderMoney(new Money(lineItem.PlacedPrice, Model.Currency));}
+                        </div>
+                        <div class="col-md-1 col-xs-12 text-right">
+                            <label class="col-xs-8 visible-xs visible-sm text-right">@Html.Translate("/OrderConfirmationMail/Price")</label>
+                            @{RenderMoney(new Money(lineItem.PlacedPrice * lineItem.Quantity, Model.Currency));}
+                        </div>
+                        <div class="col-md-1 col-xs-12 text-right">
+                            <label class="col-xs-8 visible-xs visible-sm text-right">@Html.Translate("/OrderConfirmationMail/Discount")</label>
+                            @{RenderMoney(new Money(lineItem.GetEntryDiscount(), Model.Currency));}
+                        </div>
+                        <div class="col-md-1 col-xs-12 text-right">
+                            <label class="col-xs-8 visible-xs visible-sm text-right">@Html.Translate("/OrderConfirmation/Labels/Total")</label>
+                            @{RenderMoney(lineItem.GetDiscountedPrice(Model.Currency));}
+                        </div>
+                    </div>
+                                }
+
+                <br />
+
+                <h4>@Html.Translate("/OrderConfirmation/ShippingDetails")</h4>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-right col-md-10">@Html.Translate("/OrderConfirmation/ShipmentCost")</td>
+                            <td class="total-price text-right col-md-2">@{RenderMoney(shipment.ShipmentCost);}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">@Html.Translate("/OrderConfirmation/ShippingItemsTotal")</td>
+                            <td class="total-price text-right">@{RenderMoney(shipment.ShippingItemsTotal);}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">@Html.Translate("/OrderConfirmation/ShippingMethod")</td>
+                            <td class="total-price text-right">@shipment.ShippingMethodName</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="well quicksilver-well">
+
+                            <h4>@Html.Translate("/OrderConfirmation/ShippingAddress")</h4>
+                            @Html.Partial("_Address", shipment.Address)
+                        </div>
+                    </div>
+                </div>
+                                }
+
+            <br />
+            <br />
+            <br />
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="text-right col-md-10">@Html.Translate("/OrderConfirmationMail/OrderLevelDiscounts")</td>
+                        <td class="total-price text-right col-md-2">- @{RenderMoney(Model.OrderLevelDiscountTotal);}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">@Html.Translate("/OrderConfirmationMail/HandlingCost")</td>
+                        <td class="total-price text-right">@{RenderMoney(Model.HandlingTotal);}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">@Html.Translate("/OrderConfirmationMail/ShippingSubtotal")</td>
+                        <td class="total-price text-right">@{RenderMoney(Model.ShippingSubTotal);}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">@Html.Translate("/OrderConfirmationMail/ShippingDiscount")</td>
+                        <td class="total-price text-right">- @{RenderMoney(Model.ShippingDiscountTotal);}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">@Html.Translate("/OrderConfirmationMail/ShippingCost")</td>
+                        <td class="total-price text-right">@{RenderMoney(Model.ShippingTotal);}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">@Html.Translate("/OrderConfirmationMail/TaxCost")</td>
+                        <td class="total-price text-right">@{RenderMoney(Model.TaxTotal);}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"><strong>@Html.Translate("/OrderConfirmationMail/Total")</strong></td>
+                        <td class="total-price text-right"><strong>@{RenderMoney(Model.CartTotal);}</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="well quicksilver-well">
+
+                        <h4>@Html.Translate("/OrderConfirmation/BillingDetails")</h4>
+                        @Html.Partial("_Address", Model.BillingAddress)
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    @foreach (var payment in Model.Payments)
+                    {
+                        Html.RenderPartial("_" + payment.PaymentMethodName + "Confirmation", payment);
+                    }
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                @Html.PropertyFor(x => x.CurrentPage.RegistrationArea, new { ContactId = Model.ContactId, OrderNumber = Model.OrderGroupId })
+            </div>
+        }
+        else
+        {
+            @Html.Translate("/OrderConfirmation/NoOrder")
+        }
+    </div>
+</div>
+
+@{
+    void RenderMoney(Money money)
+    {
+        <span>
+            @Html.Raw(money.ToString().Replace(money.Currency.Format.CurrencySymbol, @"<span class=""product-price__currency-marker"">" + money.Currency.Format.CurrencySymbol + "</span>"))
+        </span>
+    }
+}

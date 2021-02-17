@@ -1,0 +1,6 @@
+﻿@model IEnumerable<EPiServer.Reference.Commerce.Site.Features.Product.ViewModels.ProductTileViewModel>
+
+@foreach (var productModel in Model)
+{
+    Html.RenderPartial("_ProductTile", productModel);
+}

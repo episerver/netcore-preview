@@ -1,0 +1,81 @@
+﻿@model EPiServer.Reference.Commerce.Site.Features.AddressBook.ViewModels.AddressCollectionViewModel
+<div class="container-fluid">
+    <div class="row myPage">
+        @Html.Partial("_CmsNavigation", Model.CurrentPage)
+        <div class="col-xs-12 col-md-9 jsAddressBook">
+            <div class="row mypages-header">
+                <div class="col-xs-12 col-md-9">
+                    <h2> @Html.Translate("/AddressBook/Available")</h2>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    @if (!(bool)ViewData["IsReadOnly"])
+                    {
+                        <a class="btn btn-default btn--blue btn-sm mypages-new-address-btn" href="@Url.Action("EditForm", "AddressBook")">@Html.Translate("/AddressBook/Form/Label/NewAddress")</a>
+                    }
+                </div>
+            </div>
+            <div id="addressBook">
+                @foreach (var address in Model.Addresses)
+                {
+                    <div class="row address-block">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h3>
+                                        @Html.Hidden("addressId", address.AddressId)
+                                        @address.Name
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    @Html.Partial("_Address", address)
+                                    @if (!(bool)ViewData["IsReadOnly"])
+                                    {
+                                        <a class="btn btn-default btn-xs btn--blue" href="@Url.Action("EditForm", "AddressBook", new { addressid = address.AddressId })">@Html.Translate("/AddressBook/Form/Label/Edit")</a>
+                                        using (Html.BeginForm("Remove", "AddressBook", new { addressId = address.AddressId }, FormMethod.Post, antiforgery: null, new { @class = "form-inline" }))
+                                        {
+                                            <button type="submit" class="btn btn-default btn-xs" onclick="return confirm('@Html.Translate("/Shared/Common/DeleteItemConfirmation")');">@Html.Translate("/AddressBook/Form/Label/Delete")</button>
+                                        }
+                                    }
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    @if (address.BillingDefault)
+                                    {
+                                        <strong class="small text-success">@Html.Translate("/AddressBook/Form/Label/BillingAddress")</strong><br />
+                                    }
+                                    else
+                                    {
+                                        if (!(bool)ViewData["IsReadOnly"])
+                                        {
+                                            using (Html.BeginForm("SetPreferredBillingAddress", "AddressBook", new { addressId = address.AddressId }, FormMethod.Post))
+                                            {
+                                            <button type="submit" class="btn btn-default btn-xs">@Html.Translate("/AddressBook/Form/Label/SetBillingAddress")</button>
+                                            <br />
+                                            }
+                                        }
+                                    }
+                                    @if (address.ShippingDefault)
+                                    {
+                                        <strong class="small text-success">@Html.Translate("/AddressBook/Form/Label/ShippingAddress")</strong><br />
+                                    }
+                                    else
+                                    {
+                                        if (!(bool)ViewData["IsReadOnly"])
+                                        {
+                                            using (Html.BeginForm("SetPreferredShippingAddress", "AddressBook", new { addressId = address.AddressId }, FormMethod.Post))
+                                            {
+                                            <button type="submit" class="btn btn-default btn-xs" style="margin-top:5px;">@Html.Translate("/AddressBook/Form/Label/SetShippingAddress")</button>
+                                            <br />
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

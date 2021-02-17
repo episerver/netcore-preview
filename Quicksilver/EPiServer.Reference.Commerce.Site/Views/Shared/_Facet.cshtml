@@ -1,0 +1,74 @@
+﻿@model EPiServer.Reference.Commerce.Site.Features.Search.ViewModels.FilterOptionViewModel
+@{
+    Layout = null;
+}
+<div class="col-sm-3 facets-wrapper jsSearchFacets">
+    @if (Model.FacetGroups.Any(x => x.Facets.Any(y => y.Selected)))
+    {
+        <div class="well facets-summary product-filtering choices">
+            <h3>@Html.Translate("/Category/Filters")</h3>
+            <ul class="nav">
+                @for (var i = 0; i < Model.FacetGroups.Count; i++)
+                {
+                    var facetGroup = Model.FacetGroups[i];
+                    for (var j = 0; j < facetGroup.Facets.Count; j++)
+                    {
+                        var facet = facetGroup.Facets[j];
+                        if (!facet.Selected)
+                        {
+                            continue;
+                        }
+                        <li class="facet-active">
+                            <label class="btn btn-default btn-sm">
+                                    @Html.CheckBox(string.Format("FilterOption.FacetGroups[{0}].Facets[{1}].Selected", i, j),
+                                    new { @class = "jsSearchFacet", @style = "position: absolute;z-index: -100;", data_facetkey = @facet.Key, @checked = "checked" })
+                                    @facet.Name <span class="glyphicon glyphicon-remove"></span>
+                            </label>
+                            @Html.TextBox(string.Format("FilterOption.FacetGroups[{0}].Facets[{1}].Key", i, j), facet.Key, new { @hidden = "true" })
+                        </li>
+                    }
+                }
+                <li class="facets-amount">
+                    @Html.Translate("/Facet/Choices") <strong>@Model.TotalCount</strong>
+                </li>
+            </ul>
+            <button type="button" class="btn btn-sm btn-block btn-primary jsSearchFacetRemoveAll">@Html.Translate("/Category/RemoveAll")</button>
+        </div>
+    }
+
+    <ul class="nav">
+        <li>
+            <h3>@Html.Translate("/Category/SortBy")</h3>
+            @Html.DropDownList("FilterOption.Sort", Model.Sorting, new { @class = "form-control jsSearchSort" })<br />
+        </li>
+    </ul>
+
+    @for (var i = 0; i < Model.FacetGroups.Count; i++)
+    {
+        var facetGroup = Model.FacetGroups[i];
+       
+        <ul class="nav facet-group">
+            <li>
+                <h3>@facetGroup.GroupName</h3>
+                @Html.TextBox(string.Format("FilterOption.FacetGroups[{0}].GroupFieldName", i), facetGroup.GroupFieldName, new { @hidden = "true" })
+            </li>
+            @for (var j = 0; j < facetGroup.Facets.Count; j++)
+            {
+                var facet = facetGroup.Facets[j];
+                if (facet.Selected)
+                {
+                    continue;
+                }
+                <li>
+                    <label style="font-weight: normal; display: block;">
+                        @Html.CheckBox(string.Format("FilterOption.FacetGroups[{0}].Facets[{1}].Selected", i, j),
+                    facet.Selected,
+                    new { @class = "jsSearchFacet", @style = "position: absolute;z-index: -100;", data_facetgroup = @facetGroup.GroupFieldName, data_facetkey = @facet.Key })
+                        @facet.Name <span class="counter counter--medium">@facet.Count</span>
+                    </label>
+                    @Html.TextBox(string.Format("FilterOption.FacetGroups[{0}].Facets[{1}].Key", i, j), facet.Key, new { @hidden = "true" })
+                </li>
+            }
+        </ul>
+    }
+</div>

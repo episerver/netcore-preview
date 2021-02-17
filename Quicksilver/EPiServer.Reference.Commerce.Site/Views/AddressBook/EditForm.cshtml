@@ -1,0 +1,13 @@
+﻿@model EPiServer.Reference.Commerce.Site.Features.AddressBook.ViewModels.AddressViewModel
+
+<div class="container-fluid">
+    <div class="row myPage">
+        @if (Model.CurrentPage != null)
+        {
+            @Html.Partial("_CmsNavigation", Model.CurrentPage)
+        }
+
+       @Html.Partial("EditAddress", Model)
+
+    </div>
+</div>

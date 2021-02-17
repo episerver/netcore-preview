@@ -1,0 +1,25 @@
+version: "3"
+services:
+  sql:
+    build:
+      dockerfile: ./Sql.Dockerfile
+      context: .
+    # comment out below lines if you want to expose sql server port for using with other tool like sql server managemnent studio
+    #ports:
+    #  - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${sa_password}
+    image: quicksilver/db:${sql_tag}
+  web:
+    build:
+      dockerfile: ./Web.Dockerfile
+      context: .
+    ports:
+      - "${site_port}:80"
+    environment:
+      ConnectionStrings__EPiServerDB: "Server=sql;Database=netcore.qs.cms;User Id=sa;Password=${sa_password};"
+      ConnectionStrings__EcfSqlConnection: "Server=sql;Database=netcore.qs.commerce;User Id=sa;Password=${sa_password};"
+    depends_on:
+      - sql
+    image: quicksilver/web:${web_tag}

@@ -1,0 +1,24 @@
+[
+  {
+    "outputFileName": "wwwroot/css/css.min.css",
+    "inputFiles": [
+      "wwwroot/css/style.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/script.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery-1.11.1.js",
+      "wwwroot/js/jquery.validate.min.js",
+      "wwwroot/js/jquery.validate.unobtrusive.min.js",
+      "wwwroot/js/bootstrap*",
+      "wwwroot/js/mustache.min.js",
+      "wwwroot/js/js/*.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  }
+]

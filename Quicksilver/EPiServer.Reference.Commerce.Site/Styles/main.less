@@ -1,0 +1,156 @@
+html { 
+    min-height: 100%;
+    position: relative;
+}
+body {
+    background: @site-background;
+}
+
+h1, h2, h3 { font-family: 'Raleway', sans-serif; }
+h1, h2, h3, h4 { margin-top: 0; }
+
+.link--black { 
+    &,
+    &:hover,
+    &:visited,
+    &:active,
+    &:focus {
+        color: @text-color;
+    }
+}
+
+
+.form-inline { display: inline-block; }
+.form-field--narrow { 
+    input[type="text"]& { max-width: 60px; }
+    select& { max-width: 70px; }
+}
+
+
+.btn .glyphicon { top: 2px; }
+.btn-gray-lighter {
+  .button-variant(@text-color; @gray-lighter; @gray-lighter);
+}
+.btn-gray-light {
+  .button-variant(@text-color; @gray-light; @gray-light);
+}
+
+
+.page-wrapper { min-height: 100%; }
+.site-wrapper { 
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.teaserblock {
+    z-index: 2;
+}
+
+//
+// Cookies bar
+// --------------------------------------------------
+.cookies {
+    animation: cookiesIn .3s ease-out;
+    -webkit-animation: cookiesIn .5s ease-out;
+    background: @gray-dark;
+    bottom: 0px;
+    color: #fff;
+    left: 0;
+    padding: 10px 10px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    z-index: 100000;
+}
+
+@-webkit-keyframes cookiesIn { 
+    0% { 
+        opacity: 0; 
+        -webkit-transform: translateY(40px); 
+    } 
+    100% { 
+        opacity: 1; 
+        -webkit-transform: translateY(0); 
+    } 
+} 
+
+@keyframes cookiesIn { 
+    0% { 
+        opacity: 0; 
+        transform: translateY(40px); 
+    } 
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    } 
+} 
+
+.cookiesIn { 
+    -webkit-animation-name: cookiesIn; 
+    animation-name: cookiesIn; 
+}
+
+
+
+
+//
+// Site-wide components
+// --------------------------------------------------
+.site-logo {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0px; 
+    position: relative;
+
+    &,
+    a,
+    a:hover,
+    a:active,
+    a:focus,
+    a:visited { color: @text-color; }
+}
+
+
+.section-box {
+    margin-bottom: @padding-large-vertical * 4;
+
+    &&--visible {
+        background: lighten(@gray-base, 97%);
+        border: 1px solid @gray-lighter;
+        padding: @padding-large-vertical @padding-large-horizontal;
+    }
+}
+
+
+// Palm only
+@media (max-width: @screen-xs-max) {
+    body { padding-top: 70px; }
+
+    ul#epi-quickNavigator { display: none; }	
+
+    .xs-vertical-margin { 
+        display: inline-block;
+        margin-bottom: @padding-large-vertical;
+    }
+}
+
+// Lap and up
+@media (min-width: @screen-sm-min) {
+    .site-wrapper { max-width: 960px; }
+    .site-logo {
+        font-size: 60px;
+        font-weight: 400;
+        top: -10px;
+    }
+    
+    .modal.in .modal-dialog.modal--tall {
+        transform: translate(0, 10%);
+    }
+}
+
+// Desktop and up
+@media (min-width: @screen-lg-min) {
+    .site-wrapper { max-width: 1140px; }
+}

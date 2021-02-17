@@ -1,0 +1,1 @@
+docker-compose rm -f -s -v web

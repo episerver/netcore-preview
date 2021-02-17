@@ -1,0 +1,6 @@
+﻿@model EPiServer.Reference.Commerce.Site.Features.Market.ViewModels.LanguageViewModel
+
+@using (Html.BeginForm("Set", "Language", new { contentLink = @Model.ContentLink }))
+{
+    @Html.DropDownListFor(x => x.Language, Model.Languages, new { @class = "form-control input-sm jsLanguageSelector" })
+}

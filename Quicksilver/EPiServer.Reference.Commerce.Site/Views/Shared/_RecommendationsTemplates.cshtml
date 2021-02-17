@@ -1,0 +1,25 @@
+﻿<script id="epiRecommendationListTemplate" type="x-tmpl-mustache">
+    {{#recs}}<div class="jsProductTile product-row__tile" data-recommendation-id="{{id}}">{{> epiRecommendationItemTemplate}}</div>{{/recs}}
+</script>
+<script id="epiRecommendationItemTemplate" type="x-tmpl-mustache">
+    {{#hasDiscount}}<div class="product has-discount">{{/hasDiscount}}
+    {{^hasDiscount}}<div class="product">{{/hasDiscount}}
+        <a href="{{#attributes}}{{url}}{{/attributes}}&recommendationId={{id}}" class="link--black">
+            <div class="view-details"></div>
+            <img src="{{#attributes}}{{img}}{{/attributes}}" alt="{{refCode}}" class="img-responsive" />
+            <h3 class="product-title">{{#attributes}}{{title}}{{/attributes}}</h3>
+            <div>
+                {{#hasDiscount}}
+                <h4 class="product-price">{{#attributes}}{{unitPrice}}{{/attributes}}</h4>
+                <h4 class="product-price product-price--discount">{{#attributes}}{{salePrice}}{{/attributes}}</h4>
+                {{/hasDiscount}}
+                {{^hasDiscount}}
+                <h4 class="product-price">{{#attributes}}{{salePrice}}{{/attributes}}</h4>
+                {{/hasDiscount}}
+            </div>
+        </a>
+    </div>
+    <div class="quick-view-btn-container">
+        <button type="button" data-toggle="modal" data-target="#ModalDialog" data-url="{{#attributes}}{{url}}{{/attributes}}&recommendationId={{id}}" class="btn btn-block btn-sm quickview-button">@Html.Translate("/Product/Quickview")</button>
+    </div>
+</script>
