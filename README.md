@@ -6,6 +6,14 @@ This preview repository is early access to the latest Episerver packages targeti
 
 ---
 
+## The Solution
+
+Please use your user directory on windows or add everyone to the folder where you created the repo.  Alloy and Quicksilver are both using localdb so you need to have the correct permissions.
+
+`Quicksilver has a default username and password of admin@example.com / Episerver123!`
+
+---
+
 ## Nuget Package Location
 
 This preview repository has a nuget.config with the location to the packages.  If you need to add your own nuget.config or update package sources, please use the following location.
@@ -35,8 +43,10 @@ cd projectname
 dotnet-episerver create-cms-database ProjectName.csproj -S . -E 
 
 ```
+### Notes
 
 Right now there is no command to create the admin user, we plan to add in the future.  You can check Quicksilver\EPiServer.Reference.Commerce.Site\Infrastructure\UsersInstaller.cs if you want to automate in the short term.
+
 ---
 
 ## Create empty commerce site
@@ -47,8 +57,10 @@ cd projectname
 dotnet-episerver create-cms-database ProjectName.csproj -S . -E
 dotnet-episerver create-commerce-database ProjectName.csproj -S . -E --reuse-cms-user
 ```
+### Notes
 
 Right now there is no command to create the admin user, we plan to add in the future.  You can check Quicksilver\EPiServer.Reference.Commerce.Site\Infrastructure\UsersInstaller.cs if you want to automate in the short term.
+
 ---
 
 ## Create alloy site
@@ -59,7 +71,10 @@ cd projectname
 dotnet-episerver create-cms-database ProjectName.csproj -S . -E
 ```
 
+### Notes
+
 Alloy has a middleware to create the administration user.
+
 ---
 
 ## Configuration
