@@ -45,6 +45,7 @@ dotnet-episerver create-cms-database ProjectName.csproj -S . -E
 ```
 ### Notes
 
+-S stands for the server you want to connect to.  Do not use . if you dont have a local sql server installed.  You could also use MahcineName\SQLEXRESSS or (LocalDb)\MSSqlLocalDB instead of ".".
 Right now there is no command to create the admin user, we plan to add in the future.  You can check Quicksilver\EPiServer.Reference.Commerce.Site\Infrastructure\UsersInstaller.cs if you want to automate in the short term.
 
 ---
@@ -59,6 +60,7 @@ dotnet-episerver create-commerce-database ProjectName.csproj -S . -E --reuse-cms
 ```
 ### Notes
 
+-S stands for the server you want to connect to.  Do not use . if you dont have a local sql server installed.  You could also use MahcineName\SQLEXRESSS or (LocalDb)\MSSqlLocalDB instead of ".".
 Right now there is no command to create the admin user, we plan to add in the future.  You can check Quicksilver\EPiServer.Reference.Commerce.Site\Infrastructure\UsersInstaller.cs if you want to automate in the short term.
 
 ---
@@ -73,6 +75,7 @@ dotnet-episerver create-cms-database ProjectName.csproj -S . -E
 
 ### Notes
 
+-S stands for the server you want to connect to.  Do not use . if you dont have a local sql server installed.  You could also use MahcineName\SQLEXRESSS or (LocalDb)\MSSqlLocalDB instead of ".".
 Alloy has a middleware to create the administration user.
 
 ---
