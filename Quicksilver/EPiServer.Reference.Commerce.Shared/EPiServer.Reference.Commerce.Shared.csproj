@@ -2,13 +2,13 @@
   <Import Project="Common.props" />
 	<PropertyGroup>
 		<NoWarn>1591</NoWarn>
+    <TargetFramework>net5.0</TargetFramework>
 	</PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="EPiServer.Commerce.Core" Version="14.0.0-inte-017361"/>
-    <PackageReference Include="EPiServer.CMS.UI.AspNetIdentity" Version="12.0.0-inte-017361" />
-  </ItemGroup>
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="EPiServer.Commerce.Core" />
+    <PackageReference Include="EPiServer.CMS.UI.AspNetIdentity" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore" />
+    <PackageReference Include="EPiServer.CMS.Core" />
   </ItemGroup>
 </Project>

@@ -73,4 +73,24 @@ UpgradeLog*.htm
 # VS2015 settings folder
 .vs
 Setup*.log
-
+Alloy/App_Data/
+/Alloy/modules/_protected/CMS/CMS.zip
+/Alloy/modules/_protected/EPiServer.Admin/EPiServer.Admin.zip
+/Alloy/modules/_protected/EPiServer.Cms.TinyMce/EPiServer.Cms.TinyMce.zip
+/Alloy/modules/_protected/EPiServer.Cms.UI.Settings/EPiServer.Cms.UI.Settings.zip
+/Alloy/modules/_protected/EPiServer.VisitorGroups.Management.UI/EPiServer.VisitorGroups.Management.UI.zip
+/Alloy/modules/_protected/Shell/Shell.zip
+/Quicksilver/EPiServer.Reference.Commerce.Site/modules/_protected/CMS/CMS.zip
+/Quicksilver/EPiServer.Reference.Commerce.Site/modules/_protected/Commerce/Commerce.zip
+/Quicksilver/EPiServer.Reference.Commerce.Site/modules/_protected/EPiServer.Admin/EPiServer.Admin.zip
+/Quicksilver/EPiServer.Reference.Commerce.Site/modules/_protected/EPiServer.Cms.UI.Settings/EPiServer.Cms.UI.Settings.zip
+/Quicksilver/EPiServer.Reference.Commerce.Site/modules/_protected/EPiServer.Commerce.Admin/EPiServer.Commerce.Admin.zip
+/Quicksilver/EPiServer.Reference.Commerce.Site/modules/_protected/EPiServer.Commerce.Shell/EPiServer.Commerce.Shell.zip
+/Quicksilver/EPiServer.Reference.Commerce.Site/modules/_protected/EPiServer.Commerce.UI.CustomerService/EPiServer.Commerce.UI.CustomerService.zip
+/Quicksilver/EPiServer.Reference.Commerce.Site/modules/_protected/EPiServer.VisitorGroups.Management.UI/EPiServer.VisitorGroups.Management.UI.zip
+/Quicksilver/EPiServer.Reference.Commerce.Site/modules/_protected/Shell/Shell.zip
+/Quicksilver/EPiServer.Reference.Commerce.Site/Styles/style.css
+/Quicksilver/EPiServer.Reference.Commerce.Site/wwwroot/css/css.min.css
+/Quicksilver/EPiServer.Reference.Commerce.Site/wwwroot/js/script.min.js
+/Alloy/wwwroot/css/css.min.css
+/Alloy/wwwroot/js/script.min.js

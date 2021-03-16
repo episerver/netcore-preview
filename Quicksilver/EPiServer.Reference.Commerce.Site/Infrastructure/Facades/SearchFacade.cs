@@ -2,7 +2,9 @@
 using Mediachase.Commerce.Website.Search;
 using Mediachase.Search;
 using Mediachase.Search.Extensions;
+using Microsoft.Extensions.Options;
 using System;
+using System.Linq;
 using AppContext = Mediachase.Commerce.Core.AppContext;
 using StringCollection = System.Collections.Specialized.StringCollection;
 
@@ -20,6 +22,12 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.Facades
         private SearchManager _searchManager;
         private SearchProviderType _searchProviderType;
         private bool _initialized;
+        private readonly IOptions<SearchOptions> _searchOptions;
+
+        public SearchFacade(IOptions<SearchOptions> searchOptions)
+        {
+            _searchOptions = searchOptions;
+        }
 
         public virtual ISearchResults Search(CatalogEntrySearchCriteria criteria)
         {
@@ -33,7 +41,7 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.Facades
             return _searchProviderType;
         }
 
-        public virtual SearchFilter[] SearchFilters => SearchFilterHelper.Current.SearchConfig.SearchFilters;
+        public virtual SearchFilter[] SearchFilters => new SearchFilter[0];
 
         public virtual StringCollection GetOutlinesForNode(string code)
         {
@@ -46,22 +54,22 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.Facades
             {
                 return;
             }
-            _searchManager = new SearchManager(AppContext.Current.ApplicationName);
+            _searchManager = new SearchManager(AppContext.Current.ApplicationName, _searchOptions);
             _searchProviderType = LoadSearchProvider();
             _initialized = true;
         }
 
         private SearchProviderType LoadSearchProvider()
         {
-            var element = SearchConfiguration.Instance.SearchProviders;
-            if (element.Providers == null ||
-                string.IsNullOrEmpty(element.DefaultProvider) ||
-                string.IsNullOrEmpty(element.Providers[element.DefaultProvider].Type))
+            var element = _searchOptions.Value.SearchProviders;
+            if (element == null ||
+                string.IsNullOrEmpty(_searchOptions.Value.DefaultSearchProvider) ||
+                string.IsNullOrEmpty(_searchOptions.Value.SearchProviders.Single(x => x.Name.Equals(_searchOptions.Value.DefaultSearchProvider, StringComparison.OrdinalIgnoreCase)).Type))
             {
                 return SearchProviderType.Unknown;
             }
 
-            var providerType = Type.GetType(element.Providers[element.DefaultProvider].Type);
+            var providerType = Type.GetType(_searchOptions.Value.SearchProviders.Single(x => x.Name.Equals(_searchOptions.Value.DefaultSearchProvider, StringComparison.OrdinalIgnoreCase)).Type);
             var baseType = Type.GetType("Mediachase.Search.Providers.Lucene.LuceneSearchProvider, Mediachase.Search.LuceneSearchProvider");
             if (providerType == null || baseType == null)
             {

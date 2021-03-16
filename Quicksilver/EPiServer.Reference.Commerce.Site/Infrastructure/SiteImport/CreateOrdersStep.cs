@@ -230,7 +230,7 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport
         /// <returns>A collection of <see cref="CustomerTemplate"/>s.</returns>
         private IEnumerable<CustomerTemplate> GetCustomersToImport()
         {
-            string filePath = Path.Combine(_webHostEnvironment.ContentRootPath, @"App_Data\Orders.json");
+            string filePath = Path.Combine(_webHostEnvironment.ContentRootPath, @"App_Data/Orders.json");
             string json;
 
             using (var reader = new StreamReader(filePath, Encoding.UTF8))

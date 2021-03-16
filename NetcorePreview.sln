@@ -13,6 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPiServer.Reference.Commerc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPiServer.Reference.Commerce.Site", "Quicksilver\EPiServer.Reference.Commerce.Site\EPiServer.Reference.Commerce.Site.csproj", "{85B029DA-B853-4FAD-8F70-26B3C499C6F7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Props", "_Props", "{584458AA-FC2F-464C-9712-B7A2964D3EB2}"
+	ProjectSection(SolutionItems) = preProject
+		dependencies.props = dependencies.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -71,7 +71,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Payment.ViewModelFactories
         {
             var methods = _paymentManager.GetPaymentMethodsByMarket(marketId)
                 .PaymentMethod
-                .Where(x => x.IsActive && languageCode.Equals(x.LanguageId, StringComparison.OrdinalIgnoreCase))
+                .Where(x => x.IsActive && languageCode.Equals(x.LanguageId, StringComparison.OrdinalIgnoreCase) && x.SystemKeyword != "AuthorizeTokenEx")
                 .OrderBy(x => x.Ordering)
                 .Select(x => new PaymentMethodViewModel<IPaymentMethod>
                 {

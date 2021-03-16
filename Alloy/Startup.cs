@@ -4,7 +4,6 @@ using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.Data;
 using EPiServer.DependencyInjection;
 using EPiServer.ServiceLocation;
-using EPiServer.Web.Internal;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,12 +49,7 @@ namespace EPiServer.Templates.Alloy.Mvc
             services.AddMvc();
             services.AddAlloy();
             services.AddCms();
-
-            services.Configure<UIOptions>(uiOptions =>
-            {
-                uiOptions.UIShowGlobalizationUserInterface = true;
-            });
-
+            services.AddTinyMce();
             services.AddEmbeddedLocalization<Startup>();
         }
 

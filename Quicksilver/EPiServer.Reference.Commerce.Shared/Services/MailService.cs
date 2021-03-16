@@ -4,9 +4,11 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Specialized;
 using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace EPiServer.Reference.Commerce.Shared.Services
 {

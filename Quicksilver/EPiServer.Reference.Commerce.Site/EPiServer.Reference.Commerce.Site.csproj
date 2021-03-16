@@ -7,20 +7,23 @@
 	<ItemGroup>
 		<None Include="wwwroot\**\*.*" />
 		<EmbeddedResource Include="lang\**\*" />
-		<PackageReference Include="EPiServer.Cms.UI.AspNetIdentity" Version="12.0.0-inte-017361" />
-		<PackageReference Include="EPiServer.Commerce.Web" Version="14.0.0-inte-017361" />
-		<PackageReference Include="EPiServer.Personalization.Commerce" Version="4.0.0.0-inte-017361" />
-		<PackageReference Include="EPiServer.Telemetry.UI" Version="2.0.0-inte-017361" />
+		<PackageReference Include="EPiServer.Cms.UI.AspNetIdentity" />
+		<PackageReference Include="EPiServer.Commerce.Web" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" />
+    <PackageReference Include="EPiServer.Framework" />
+		<PackageReference Include="EPiServer.Personalization.Commerce" />
+		<PackageReference Include="EPiServer.Telemetry.UI" />
 		<PackageReference Include="Lucene.Net" Version="4.8.0-beta00012" />
 		<PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00012" />
 		<PackageReference Include="System.ServiceModel.Syndication" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0" />
-    <PackageReference Include="Serilog" Version="2.10.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
-    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Sinks.File" />
     <PackageReference Include="Adyen" Version="5.7.0" />
-    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="BuildBundlerMinifier" />
+    <PackageReference Include="Newtonsoft.Json" />
 		<ProjectReference Include="..\EPiServer.Reference.Commerce.Shared\EPiServer.Reference.Commerce.Shared.csproj" />
 	</ItemGroup>
 	<ItemGroup>

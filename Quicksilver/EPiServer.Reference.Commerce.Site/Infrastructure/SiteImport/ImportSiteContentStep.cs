@@ -39,6 +39,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using AppContext = Mediachase.Commerce.Core.AppContext;
 using EPiServer.DataAbstraction.RuntimeModel.Internal;
+using Microsoft.Extensions.Options;
+using SearchOptions = Mediachase.Search.SearchOptions;
 
 namespace EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport
 {
@@ -55,6 +57,7 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport
         private Injected<IConnectionStringHandler> _connectionStringHandler = default;
         private Injected<IWebHostEnvironment> _webHostEnvironment = default;
         private Injected<ISynchronizedObjectInstanceCache> _objectInstanceCache = default;
+        private Injected<IOptions<SearchOptions>> _searchOptions = default;
 
         public int Order => 1000;
 
@@ -69,7 +72,7 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport
             try
             {
                 _progressMessenger.AddProgressMessageText("Importing product assets...", false, 0);
-                ImportAssets(Path.Combine(_webHostEnvironment.Service.ContentRootPath, @"App_Data\ProductAssets.episerverdata"));
+                ImportAssets(Path.Combine(_webHostEnvironment.Service.ContentRootPath, @"App_Data/ProductAssets.episerverdata"));
 
                 _progressMessenger.AddProgressMessageText("Enabling currencies...", false, 0);
                 EnableCurrencies();
@@ -78,7 +81,7 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport
                 ImportTaxes();
 
                 _progressMessenger.AddProgressMessageText("Importing catalog...", false, 0);
-                ImportCatalog(Path.Combine(_webHostEnvironment.Service.ContentRootPath, @"App_Data\Catalog_Fashion.zip"));
+                ImportCatalog(Path.Combine(_webHostEnvironment.Service.ContentRootPath, @"App_Data/Catalog_Fashion.zip"));
 
                 _progressMessenger.AddProgressMessageText("Removing default warehouse...", false, 0);
                 RemoveDefaultWarehouse();
@@ -242,7 +245,7 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport
 
         private void ImportTaxes()
         {
-            _taxImportExport.Service.Import(Path.Combine(_webHostEnvironment.Service.ContentRootPath, @"App_Data\Taxes.csv"), ',');
+            _taxImportExport.Service.Import(Path.Combine(_webHostEnvironment.Service.ContentRootPath, @"App_Data/Taxes.csv"), ',');
         }
 
         private IEnumerable<ShippingMethodDto.ShippingMethodRow> CreateShippingMethodsForLanguageAndCurrencies(ShippingMethodDto dto, IEnumerable<IMarket> markets, string languageId)
@@ -360,7 +363,7 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport
 
         private void BuildIndex(string applicationName, bool rebuild)
         {
-            var searchManager = new SearchManager(applicationName);
+            var searchManager = new SearchManager(applicationName, _searchOptions.Service);
             searchManager.SearchIndexMessage += SearchManager_SearchIndexMessage;
             searchManager.BuildIndex(rebuild);
         }

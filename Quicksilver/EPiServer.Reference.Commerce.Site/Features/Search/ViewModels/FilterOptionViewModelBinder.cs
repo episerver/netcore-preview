@@ -102,25 +102,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Search.ViewModels
             {
                 return facetGroups;
             }
-            foreach (var facet in facets.Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries))
-            {
-                var searchFilter = GetSearchFilter(facet);
-                if (searchFilter != null)
-                {
-                    var facetGroup = facetGroups.FirstOrDefault(fg => fg.GroupFieldName == searchFilter.field);
-                    if (facetGroup == null)
-                    {
-                        facetGroup = CreateFacetGroup(searchFilter);
-                        facetGroups.Add(facetGroup);
-                    }
-                    var facetOption = facetGroup.Facets.FirstOrDefault(fo => fo.Name == facet);
-                    if (facetOption == null)
-                    {
-                        facetOption = CreateFacetOption(facet);
-                        facetGroup.Facets.Add(facetOption);
-                    }
-                }
-            }
+
             var nodeContent = content as NodeContent;
             if (nodeContent == null)
             {
@@ -142,13 +124,6 @@ namespace EPiServer.Reference.Commerce.Site.Features.Search.ViewModels
 
             facetGroups.Add(nodeFacet);
             return facetGroups;
-        }
-
-        private SearchFilter GetSearchFilter(string facet)
-        {
-            return SearchFilterHelper.Current.SearchConfig.SearchFilters.FirstOrDefault(filter =>
-                filter.Values.SimpleValue.Any(value =>
-                    string.Equals(value.value, facet, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         private FacetGroupOption CreateFacetGroup(SearchFilter searchFilter)

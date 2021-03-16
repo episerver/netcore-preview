@@ -1,5 +1,4 @@
 using EPiServer.Cms.UI.AspNetIdentity;
-using EPiServer.Commerce.Security;
 using EPiServer.Data;
 using EPiServer.DependencyInjection;
 using EPiServer.Framework.Web.Resources;
@@ -13,11 +12,11 @@ using EPiServer.Reference.Commerce.Site.Infrastructure.Indexing;
 using EPiServer.ServiceLocation;
 using EPiServer.Tracking.Commerce;
 using EPiServer.Web;
-using EPiServer.Web.Internal;
 using EPiServer.Web.Routing;
 using Mediachase.Commerce;
 using Mediachase.Commerce.Anonymous;
 using Mediachase.Commerce.Core;
+using Mediachase.Commerce.Orders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -44,16 +43,14 @@ namespace EPiServer.Reference.Commerce.Site
         public void ConfigureServices(IServiceCollection services)
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(_webHostingEnvironment.ContentRootPath, "App_Data"));
-            var cmsConnectionstring = _configuration.GetConnectionString("EPiServerDB");
-            var commerceConnectionstring = _configuration.GetConnectionString("EcfSqlConnection");
             services.Configure<DataAccessOptions>(o =>
             {
-                o.UpdateDatabaseSchema = true;
+                //o.UpdateDatabaseSchema = true;
 
-                o.SetConnectionString(cmsConnectionstring);
+                o.SetConnectionString(_configuration.GetConnectionString("EPiServerDB"));
                 o.ConnectionStrings.Add(new ConnectionStringOptions
                 {
-                    ConnectionString = commerceConnectionstring,
+                    ConnectionString = _configuration.GetConnectionString("EcfSqlConnection"),
                     Name = "EcfSqlConnection"
                 });
             });
@@ -65,22 +62,21 @@ namespace EPiServer.Reference.Commerce.Site
                     o.ConnectionStringOptions = new ConnectionStringOptions
                     {
                         Name = "EcfSqlConnection",
-                        ConnectionString = commerceConnectionstring
+                        ConnectionString = _configuration.GetConnectionString("EcfSqlConnection")
                     };
                 }
             });
-            
+
+            //UI
             if (_webHostingEnvironment.IsDevelopment())
             {
+                
                 services.Configure<ClientResourceOptions>(uiOptions =>
                 {
                     uiOptions.Debug = true;
                 });
             }
-            services.Configure<UIOptions>(uiOptions =>
-            {
-                uiOptions.UIShowGlobalizationUserInterface = true;
-            });
+           
             services.Configure<JsonOptions>(o =>
             {
                 o.JsonSerializerOptions.PropertyNamingPolicy = null;
@@ -88,7 +84,7 @@ namespace EPiServer.Reference.Commerce.Site
 
             //Commerce
             services.AddCommerce();
-            
+
             //site specific
             services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
             services.TryAddEnumerable(Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton(typeof(IFirstRequestInitializer), typeof(UsersInstaller)));
@@ -107,13 +103,16 @@ namespace EPiServer.Reference.Commerce.Site
                 o.Filters.Add(new AJAXLocalizationFilterAttribute());
                 o.ModelBinderProviders.Insert(0, new ModelBinderProvider());
             });
-            services.AddMvc().AddRazorRuntimeCompilation();
 
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/util/Login";
             });
-            
+
+            services.Configure<OrderOptions>(o =>
+            {
+                o.DisableOrderDataLocalization = true;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -131,6 +130,7 @@ namespace EPiServer.Reference.Commerce.Site
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(name: "Default", pattern: "{controller}/{action}/{id?}");
+                endpoints.MapControllers();
                 endpoints.MapContent();
             });
         }
@@ -145,6 +145,5 @@ namespace EPiServer.Reference.Commerce.Site
             services.AddSingleton<IphoneVerticalResolution>();
             services.AddSingleton<AndroidVerticalResolution>();
         }
-
     }
 }
