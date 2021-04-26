@@ -3,13 +3,13 @@ using EPiServer.Core;
 using EPiServer.Framework.Localization;
 using EPiServer.Logging;
 using EPiServer.Reference.Commerce.Shared.Identity;
-using EPiServer.Reference.Commerce.Shared.Models;
-using EPiServer.Reference.Commerce.Shared.Services;
 using EPiServer.Reference.Commerce.Site.Features.AddressBook.Services;
 using EPiServer.Reference.Commerce.Site.Features.Login.Pages;
 using EPiServer.Reference.Commerce.Site.Features.Login.Services;
 using EPiServer.Reference.Commerce.Site.Features.Login.ViewModels;
 using EPiServer.Reference.Commerce.Site.Features.Shared.Controllers;
+using EPiServer.Reference.Commerce.Site.Features.Shared.Pages;
+using EPiServer.Reference.Commerce.Site.Features.Shared.Services;
 using EPiServer.Reference.Commerce.Site.Features.Start.Pages;
 using EPiServer.Reference.Commerce.Site.Infrastructure.Attributes;
 using Mediachase.Commerce.Customers;
@@ -19,7 +19,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -130,8 +129,12 @@ namespace EPiServer.Reference.Commerce.Site.Features.Login.Controllers
                     SendMarketingEmailConfirmationMail(registration.Contact.UserId, registration.Contact, token);
                 }
 
-                var returnUrl = GetSafeReturnUrl(Request.GetTypedHeaders().Referer);
-                return Json(new { ReturnUrl = returnUrl });
+                var signInResult = await SignInManager.PasswordSignInAsync(viewModel.Email, viewModel.Password, false, lockoutOnFailure: true);
+
+                if (signInResult.Succeeded)
+                {
+                    return Json(new { ReturnUrl = GetSafeReturnUrl(Request.GetTypedHeaders().Referer) });
+                }
             }
 
             _addressBookService.LoadAddress(viewModel.Address);

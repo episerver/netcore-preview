@@ -1,8 +1,8 @@
-using System.ComponentModel.DataAnnotations;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
-using EPiServer.Reference.Commerce.Shared.Models;
+using EPiServer.Reference.Commerce.Site.Features.Shared.Pages;
+using System.ComponentModel.DataAnnotations;
 
 namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Pages
 {

@@ -1,14 +1,13 @@
 ﻿using Adyen;
 using Adyen.Model.Checkout;
 using EPiServer.Commerce.Order;
-using EPiServer.ServiceLocation;
+using Mediachase.Commerce.Orders;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EPiServer.Reference.Commerce.Site.Features.Payment.PaymentMethods
 {
@@ -21,16 +20,6 @@ namespace EPiServer.Reference.Commerce.Site.Features.Payment.PaymentMethods
         private readonly Adyen.Service.Checkout _checkout;
         private readonly string _merchant_account;
         public IDictionary<string, string> Settings { get; set; }
-
-        public AdyenPaymentGateway() : this(
-            ServiceLocator.Current.GetInstance<ILogger<AdyenPaymentGateway>>(),
-            ServiceLocator.Current.GetInstance<IHttpContextAccessor>(),
-            ServiceLocator.Current.GetInstance<IOrderRepository>(),
-            ServiceLocator.Current.GetInstance<IOrderNumberGenerator>(),
-            ServiceLocator.Current.GetInstance<IOptions<AdyenPaymentOptions>>()
-            )
-        {
-        }
 
         public AdyenPaymentGateway(ILogger<AdyenPaymentGateway> logger, IHttpContextAccessor httpContextAccessor, IOrderRepository orderRepository, IOrderNumberGenerator orderNumberGenerator, IOptions<AdyenPaymentOptions> paymentOptions)
         {
@@ -56,10 +45,20 @@ namespace EPiServer.Reference.Commerce.Site.Features.Payment.PaymentMethods
 
         public PaymentProcessingResult ProcessPayment(IOrderGroup orderGroup, IPayment payment)
         {
+            if (payment.TransactionType == TransactionType.Credit.ToString())
+            {
+                // in case of refund we return success message to avoid break in CSR UI
+                return PaymentProcessingResult.CreateSuccessfulResult("Refund not impelemented for Ayden");
+            }
+
+            if (orderGroup is IPurchaseOrder && payment.TransactionType == TransactionType.Capture.ToString())
+            {
+                return PaymentProcessingResult.CreateSuccessfulResult("Auto capture is configured in Ayden");
+            }
+
             _logger.LogInformation($"Request for AdyenPayments API");
             var additionalPaymentData = payment.Properties["additionalPaymentData"] as Dictionary<string, string>;
-
-            var raw = JsonConvert.DeserializeObject<Dictionary<string, object>>(additionalPaymentData["paymentData"]);
+            var raw = additionalPaymentData == null ? new Dictionary<string, object>() : JsonConvert.DeserializeObject<Dictionary<string, object>>(additionalPaymentData["paymentData"]);
 
             var paymentMethodToken = Newtonsoft.Json.Linq.JObject.Parse(raw["paymentMethod"].ToString());
 
@@ -73,8 +72,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Payment.PaymentMethods
                 Channel = PaymentRequest.ChannelEnum.Web
             };
 
-            var amount = new Amount(orderGroup.Currency.CurrencyCode, (long)(payment.Amount * 100));
-            pmreq.Amount = amount;
+            pmreq.Amount = new Amount(orderGroup.Currency.CurrencyCode, (long)(payment.Amount * 100));
 
             var merchRef = DateTime.Now.Ticks.ToString();
             payment.Properties["Reference"] = merchRef; // A unique reference number for each transaction
@@ -105,8 +103,12 @@ namespace EPiServer.Reference.Commerce.Site.Features.Payment.PaymentMethods
                         { "refusalReason", res.RefusalReason }
                     };
 
+                    payment.TransactionID = merchRef;
+                    payment.ProviderTransactionID = res.PspReference;
                     if (res.ResultCode == PaymentsResponse.ResultCodeEnum.Authorised)
                     {
+                        //Auto capture setup in Ayden
+                        payment.TransactionType = TransactionType.Capture.ToString();
                         return PaymentProcessingResult.CreateSuccessfulResult(string.Empty);
                     }
                     else

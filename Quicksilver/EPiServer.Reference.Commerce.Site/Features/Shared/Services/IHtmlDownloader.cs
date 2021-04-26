@@ -1,4 +1,4 @@
-﻿namespace EPiServer.Reference.Commerce.Shared.Services
+﻿namespace EPiServer.Reference.Commerce.Site.Features.Shared.Services
 {
     public interface IHtmlDownloader
     {

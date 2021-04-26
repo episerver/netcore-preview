@@ -12,14 +12,6 @@ namespace EPiServer.Reference.Commerce.Site.Features.Payment.PaymentMethods
     {
         public override string SystemKeyword => "Adyen";
 
-        public AdyenPaymentMethod()
-            : this(LocalizationService.Current,
-                  ServiceLocator.Current.GetInstance<IOrderGroupFactory>(),
-                  ServiceLocator.Current.GetInstance<LanguageService>(),
-                  ServiceLocator.Current.GetInstance<IPaymentManagerFacade>())
-        {
-        }
-
         public AdyenPaymentMethod(LocalizationService localizationService,
             IOrderGroupFactory orderGroupFactory,
             LanguageService languageService,

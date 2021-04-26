@@ -3,20 +3,23 @@ using EPiServer.Core;
 using EPiServer.Data;
 using EPiServer.Framework.Localization;
 using EPiServer.Logging;
-using EPiServer.Reference.Commerce.Shared.Services;
 using EPiServer.Reference.Commerce.Site.Features.AddressBook.Services;
 using EPiServer.Reference.Commerce.Site.Features.Cart.Services;
 using EPiServer.Reference.Commerce.Site.Features.Cart.ViewModels;
 using EPiServer.Reference.Commerce.Site.Features.Checkout.Pages;
 using EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels;
+using EPiServer.Reference.Commerce.Site.Features.Payment.PaymentMethods;
+using EPiServer.Reference.Commerce.Site.Features.Shared.Services;
 using EPiServer.Reference.Commerce.Site.Features.Start.Pages;
 using EPiServer.Reference.Commerce.Site.Infrastructure.Facades;
 using EPiServer.ServiceLocation;
+using EPiServer.Web.Routing;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Orders.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -40,6 +43,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
         private readonly ILogger _log = LogManager.GetLogger(typeof(CheckoutService));
         private readonly ICartService _cartService;
         private readonly IDatabaseMode _databaseMode;
+        private readonly UrlResolver _urlResolver;
 
         public AuthenticatedPurchaseValidation AuthenticatedPurchaseValidation { get; }
         public AnonymousPurchaseValidation AnonymousPurchaseValidation { get; }
@@ -56,7 +60,8 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
             LocalizationService localizationService,
             IMailService mailService, 
             ICartService cartService,
-            IDatabaseMode databaseMode)
+            IDatabaseMode databaseMode,
+            UrlResolver urlResolver)
         {
             _addressBookService = addressBookService;
             _orderGroupFactory = orderGroupFactory;
@@ -69,6 +74,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
             _mailService = mailService;
             _cartService = cartService;
             _databaseMode = databaseMode;
+            _urlResolver = urlResolver;
 
             AuthenticatedPurchaseValidation = new AuthenticatedPurchaseValidation(_localizationService);
             AnonymousPurchaseValidation = new AnonymousPurchaseValidation(_localizationService);
@@ -211,7 +217,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
 
             var confirmationPage = _contentRepository.GetChildren<OrderConfirmationPage>(checkoutViewModel.CurrentPage.ContentLink).First();
 
-            return new UrlBuilder(confirmationPage.LinkURL) {QueryCollection = queryCollection}.ToString();
+            return _urlResolver.GetUrl(new UrlBuilder(confirmationPage.LinkURL) {QueryCollection = queryCollection}.ToString());
         }
 
         public virtual bool ValidateOrder(ModelStateDictionary modelState, CheckoutViewModel viewModel, IDictionary<ILineItem, IList<ValidationIssue>> validationMessages)

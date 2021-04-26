@@ -59,7 +59,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Cart.Controllers
             return PartialView("_WishListMiniCartDetails", viewModel);
         }
 
-        [HttpPost]
+        [HttpPost("AddToCart")]
         [AllowDBWrite]
         public async Task<IActionResult> AddToCart(string code)
         {
@@ -86,7 +86,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Cart.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, result.GetComposedValidationMessage());
         }
 
-        [HttpPost]
+        [HttpPost("ChangeCartItem")]
         [AllowDBWrite]
         public async Task<IActionResult> ChangeCartItem(string code, decimal quantity, string size, string newSize, string displayName)
         {
@@ -98,7 +98,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Cart.Controllers
             return WishListMiniCartDetails();
         }
 
-        [HttpPost]
+        [HttpPost("DeleteWishList")]
         [AllowDBWrite]
         public IActionResult DeleteWishList()
         {

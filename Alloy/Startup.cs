@@ -3,6 +3,7 @@ using AlloyMvcTemplates.Infrastructure;
 using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.Data;
 using EPiServer.DependencyInjection;
+using EPiServer.Framework.Web.Resources;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Builder;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
+using EPiServer.Scheduler;
 
 namespace EPiServer.Templates.Alloy.Mvc
 {
@@ -30,6 +32,11 @@ namespace EPiServer.Templates.Alloy.Mvc
             var dbPath = Path.Combine(_webHostingEnvironment.ContentRootPath, "App_Data\\Alloy.mdf");
             var connectionstring = _configuration.GetConnectionString("EPiServerDB") ?? $"Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename={dbPath};Initial Catalog=alloy_mvc_netcore;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
 
+            services.Configure<SchedulerOptions>(o =>
+            {
+                o.Enabled = false;
+            });
+
             services.Configure<DataAccessOptions>(o =>
             {
                 o.SetConnectionString(connectionstring);
@@ -46,10 +53,20 @@ namespace EPiServer.Templates.Alloy.Mvc
                 }
             });
 
+            if (_webHostingEnvironment.IsDevelopment())
+            {
+                
+                services.Configure<ClientResourceOptions>(uiOptions =>
+                {
+                    uiOptions.Debug = true;
+                });
+            }
+
             services.AddMvc();
             services.AddAlloy();
             services.AddCms();
             services.AddTinyMce();
+
             services.AddEmbeddedLocalization<Startup>();
         }
 

@@ -38,7 +38,7 @@ namespace EPiServer.Reference.Commerce.Site.Views.ViewComponents
 
             if (content is NodeContent category)
             {
-                return Content(FormatTitle(category.SeoInformation.Title.NullIfEmpty() ?? category.DisplayName));
+                return Content(FormatTitle(category.SeoInformation.Title.NullIfEmpty() ?? category.DisplayName) ?? "");
             }
 
             return content is StartPage startPage ?

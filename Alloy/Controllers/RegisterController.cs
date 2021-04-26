@@ -25,6 +25,19 @@ namespace AlloyTemplates.Controllers
         string AdminRoleName = Roles.WebAdmins;
         public const string ErrorKey = "CreateError";
 
+        private readonly UIUserProvider _userProvider;
+        private readonly UIRoleProvider _roleProvider;
+        private readonly UISignInManager _signInManager;
+        private readonly IContentSecurityRepository _contentSecurityRepository;
+
+        public RegisterController(UIUserProvider userProvider, UIRoleProvider roleProvider, UISignInManager signInManager, IContentSecurityRepository contentSecurityRepository)
+        {
+            _userProvider = userProvider;
+            _roleProvider = roleProvider;
+            _signInManager = signInManager;
+            _contentSecurityRepository = contentSecurityRepository;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -39,15 +52,15 @@ namespace AlloyTemplates.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await UIUserProvider.CreateUserAsync(model.Username, model.Password, model.Email, null, null, true);
+                var result = await _userProvider.CreateUserAsync(model.Username, model.Password, model.Email, null, null, true);
                 if (result.Status == UIUserCreateStatus.Success)
                 {
-                    await UIRoleProvider.CreateRoleAsync(AdminRoleName);
-                    await UIRoleProvider.AddUserToRolesAsync(result.User.Username, new string[] { AdminRoleName});
+                    await _roleProvider.CreateRoleAsync(AdminRoleName);
+                    await _roleProvider.AddUserToRolesAsync(result.User.Username, new string[] { AdminRoleName});
 
                     AdministratorRegistrationPageMiddleware.IsEnabled = false;
                     SetFullAccessToWebAdmin();
-                    var resFromSignIn = await UISignInManager.SignInAsync(UIUserProvider.Name, model.Username, model.Password);
+                    var resFromSignIn = await _signInManager.SignInAsync(_userProvider.Name, model.Username, model.Password);
                     if (resFromSignIn)
                     {
                         return Redirect("/");
@@ -61,10 +74,9 @@ namespace AlloyTemplates.Controllers
 
         private void SetFullAccessToWebAdmin()
         {
-            var securityrep = ServiceLocator.Current.GetInstance<IContentSecurityRepository>();
-            var permissions = securityrep.Get(ContentReference.RootPage).CreateWritableClone() as IContentSecurityDescriptor;
+            var permissions = _contentSecurityRepository.Get(ContentReference.RootPage).CreateWritableClone() as IContentSecurityDescriptor;
             permissions.AddEntry(new AccessControlEntry(AdminRoleName, AccessLevel.FullAccess));
-            securityrep.Save(ContentReference.RootPage, permissions, SecuritySaveType.Replace);
+            _contentSecurityRepository.Save(ContentReference.RootPage, permissions, SecuritySaveType.Replace);
         }
 
         private void AddErrors(IEnumerable<string> errors)
@@ -74,28 +86,5 @@ namespace AlloyTemplates.Controllers
                 ModelState.AddModelError(ErrorKey, error);
             }
         }
-
-        UIUserProvider UIUserProvider
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<UIUserProvider>();
-            }
-        }
-        UIRoleProvider UIRoleProvider
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<UIRoleProvider>();
-            }
-        }
-        UISignInManager UISignInManager
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<UISignInManager>();
-            }
-        }
-
     }
 }

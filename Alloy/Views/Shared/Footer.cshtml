@@ -1,4 +1,4 @@
-﻿@model IPageViewModel<SitePageData>
+@model IPageViewModel<SitePageData>
 <div class="row">
     <div class="span12 footer">
         <hr />
@@ -22,7 +22,7 @@
                     <li>
                         @if(Model.Layout.LoggedIn)
                         {
-                            @Html.ActionLink(LocalizationService.Current.GetString("/footer/logout"), "Logout", new { language = @Model.CurrentPage.Language.Name })
+                            @Html.ContentLink(LocalizationService.Current.GetString("/footer/logout"), "Logout")
                         }
                         else
                         {

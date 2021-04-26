@@ -1,13 +1,12 @@
 ﻿using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.Core;
 using EPiServer.Framework.Localization;
-using EPiServer.Reference.Commerce.Shared.Identity;
-using EPiServer.Reference.Commerce.Shared.Models;
-using EPiServer.Reference.Commerce.Shared.Services;
 using EPiServer.Reference.Commerce.Site.Features.Login.Services;
 using EPiServer.Reference.Commerce.Site.Features.ResetPassword.Pages;
 using EPiServer.Reference.Commerce.Site.Features.ResetPassword.ViewModels;
 using EPiServer.Reference.Commerce.Site.Features.Shared.Controllers;
+using EPiServer.Reference.Commerce.Site.Features.Shared.Pages;
+using EPiServer.Reference.Commerce.Site.Features.Shared.Services;
 using EPiServer.Reference.Commerce.Site.Features.Start.Pages;
 using EPiServer.Reference.Commerce.Site.Infrastructure.Attributes;
 using Microsoft.AspNetCore.Authorization;

@@ -5,6 +5,8 @@ using EPiServer.Web.Mvc;
 using EPiServer.Shell.Security;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using EPiServer.Web.Routing;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AlloyTemplates.Controllers
 {
@@ -30,13 +32,13 @@ namespace AlloyTemplates.Controllers
         public async Task<IActionResult> Logout()
         {
             await UISignInManager.Service.SignOutAsync();
-            return RedirectToAction("Index");
+            return Redirect(HttpContext.RequestServices.GetService<UrlResolver>().GetUrl(PageContext.ContentLink, PageContext.LanguageID));
         }
 
         public virtual void ModifyLayout(LayoutModel layoutModel)
         {
             var page = PageContext.Page as SitePageData;
-            if(page != null)
+            if (page != null)
             {
                 layoutModel.HideHeader = page.HideSiteHeader;
                 layoutModel.HideFooter = page.HideSiteFooter;

@@ -37,6 +37,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Search.ViewModels
         {
             bindingContext.ModelName = "FilterOption";
             var model = new FilterOptionViewModel();
+            BindFormData(model, bindingContext);
 
             var contentLink = _httpContextAccessor.HttpContext.GetContentLink();
             IContent content = null;
@@ -53,6 +54,36 @@ namespace EPiServer.Reference.Commerce.Site.Features.Search.ViewModels
             bindingContext.Result = ModelBindingResult.Success(model);
 
             return Task.CompletedTask;
+        }
+
+        private void BindFormData(FilterOptionViewModel model, ModelBindingContext bindingContext)
+        {
+            var pageValueProviderResult =  bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.Page");
+            if (pageValueProviderResult != ValueProviderResult.None)
+            {
+                if (!string.IsNullOrEmpty(pageValueProviderResult.FirstValue) && int.TryParse(pageValueProviderResult.FirstValue, out var pageValue)) 
+                { 
+                    model.Page = pageValue;
+                }
+            }
+
+            var selectedFacetValueProviderResult = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.SelectedFacet");
+            if (selectedFacetValueProviderResult != ValueProviderResult.None)
+            {
+                if (!string.IsNullOrEmpty(selectedFacetValueProviderResult.FirstValue))
+                {
+                    model.SelectedFacet = selectedFacetValueProviderResult.FirstValue;
+                }
+            }
+
+            var sortValueProviderResult = bindingContext.ValueProvider.GetValue($"{bindingContext.ModelName}.Sort");
+            if (sortValueProviderResult != ValueProviderResult.None)
+            {
+                if (!string.IsNullOrEmpty(sortValueProviderResult.FirstValue))
+                {
+                    model.Sort = sortValueProviderResult.FirstValue;
+                }
+            }
         }
 
         protected virtual void SetupModel(FilterOptionViewModel model, string q, string sort, string facets, IContent content)

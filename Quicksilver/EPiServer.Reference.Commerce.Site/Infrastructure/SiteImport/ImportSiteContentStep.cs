@@ -1,10 +1,10 @@
 ﻿using EPiServer.Commerce.Internal.Migration.Steps;
 using EPiServer.Commerce.Marketing;
 using EPiServer.Commerce.Marketing.Promotions;
-using EPiServer.Configuration;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAbstraction.RuntimeModel;
+using EPiServer.DataAbstraction.RuntimeModel.Internal;
 using EPiServer.DataAccess;
 using EPiServer.Enterprise;
 using EPiServer.Framework.Cache;
@@ -28,9 +28,10 @@ using Mediachase.Commerce.Shared;
 using Mediachase.Data.Provider;
 using Mediachase.Search;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -38,8 +39,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AppContext = Mediachase.Commerce.Core.AppContext;
-using EPiServer.DataAbstraction.RuntimeModel.Internal;
-using Microsoft.Extensions.Options;
 using SearchOptions = Mediachase.Search.SearchOptions;
 
 namespace EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport

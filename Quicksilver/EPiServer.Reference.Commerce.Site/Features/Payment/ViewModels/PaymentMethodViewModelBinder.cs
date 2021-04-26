@@ -1,5 +1,7 @@
 using EPiServer.Commerce.Order;
+using EPiServer.ServiceLocation;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Payment.ViewModels
             if (selectedPaymentMethod != null)
             {
                 var modelType = selectedPaymentMethod.GetType();
-                var model = Activator.CreateInstance(modelType);
+                var model = ActivatorUtilities.CreateInstance(ServiceLocator.Current, modelType);
                 bindingContext.ModelMetadata = _defaultProvider.GetMetadataForType(modelType);
                 bindingContext.Result = ModelBindingResult.Success(model);
             }

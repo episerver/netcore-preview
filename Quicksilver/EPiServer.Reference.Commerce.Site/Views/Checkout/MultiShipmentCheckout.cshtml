@@ -107,11 +107,11 @@
                                                         {
                                                             <span class="product-price">@{RenderMoney(cartItem.PlacedPrice);}</span>
                                                             <span class="product-price product-price--discount xs-vertical-margin">@{RenderMoney(cartItem.DiscountedUnitPrice.Value);}</span>
-                                                                }
-                                                                else
-                                                                {
+                                                        }
+                                                        else
+                                                        {
                                                             <span class="product-price xs-vertical-margin">@{RenderMoney(cartItem.PlacedPrice);}</span>
-                                                                }
+                                                        }
                                                     </div>
 
                                                     <div class="col-xs-6 col-sm-2">
@@ -191,6 +191,7 @@
                 <button type="submit" class="btn btn-primary btn--blue pull-right">@Html.Translate("/Checkout/PlaceOrder")</button>
             </div>
         </div>
+        <input type="hidden" name="currentPageReference" value="@Model.CurrentPage.ContentLink.ToString()" />
     }
 </div>
 

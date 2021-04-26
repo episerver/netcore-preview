@@ -9,10 +9,10 @@ namespace AlloyTemplates.Business.Channels
     /// </summary>
     public abstract class DisplayResolutionBase : IDisplayResolution
     {
-        private Injected<LocalizationService> LocalizationService { get; set; }
-
-        protected DisplayResolutionBase(string name, int width, int height)
+        private readonly LocalizationService _localizationService;
+        protected DisplayResolutionBase(LocalizationService localizationService, string name, int width, int height)
         {
+            _localizationService = localizationService;
             Id = GetType().FullName;
             Name = Translate(name);
             Width = width;
@@ -43,7 +43,7 @@ namespace AlloyTemplates.Business.Channels
         {
             string value;
 
-            if(!LocalizationService.Service.TryGetString(resurceKey, out value))
+            if (!_localizationService.TryGetString(resurceKey, out value))
             {
                 value = resurceKey;
             }

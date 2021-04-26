@@ -21,7 +21,6 @@
     @Html.CanonicalLink()
     @Html.AlternateLinks()
     <link rel="stylesheet" href="~/css/css.min.css" />
-    <link rel="stylesheet" href="~/js/script.min.js" />
     @Html.RequiredClientResources("Header") @*Enable components to require resources. For an example, see the view for VideoBlock.*@
 </head>
 
@@ -45,5 +44,6 @@
             }
         </div>
         @Html.RequiredClientResources("Footer")
+        <script src="~/js/script.min.js"></script>
     </body>
 </html>

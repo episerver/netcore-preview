@@ -91,11 +91,8 @@ namespace EPiServer.Reference.Commerce.Site.Features.Login.Services
             {
                 result = await _uiUserProvider.CreateUserAsync(user.UserName, user.Password, user.Email, null, null, true);
 
-
                 if (result.Status == UIUserCreateStatus.Success)
                 {
-                    var resFromSignIn = await _uISignInManager.SignInAsync(_uiUserProvider.Name, user.UserName, user.Password);
-                    
                     contact = await CreateCustomerContact(user);
                 }
             }

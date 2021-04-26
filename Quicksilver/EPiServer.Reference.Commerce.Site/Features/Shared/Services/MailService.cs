@@ -1,34 +1,44 @@
 ﻿using EPiServer.Core;
-using EPiServer.Reference.Commerce.Shared.Models;
+using EPiServer.Framework;
+using EPiServer.Reference.Commerce.Site.Features.Shared.Pages;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using MimeKit;
+using MailKit.Net.Smtp;
 using System;
 using System.Collections.Specialized;
-using System.Net.Mail;
-using System.Threading.Tasks;
 
-namespace EPiServer.Reference.Commerce.Shared.Services
+namespace EPiServer.Reference.Commerce.Site.Features.Shared.Services
 {
     [ServiceConfiguration(typeof(IMailService), Lifecycle = ServiceInstanceScope.Transient)]
     public class MailService : IMailService
     {
+        private const int DefaultSmtpPort = 587;
+
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUrlResolver _urlResolver;
+        private readonly UrlResolver _urlResolver;
         private readonly IContentLoader _contentLoader;
         private readonly IHtmlDownloader _htmlDownloader;
+        private readonly IOptions<SmtpOptions> _smtpOptions;
+        private readonly IConfiguration _configuration;
 
         public MailService(IHttpContextAccessor httpContextBase, 
-            IUrlResolver urlResolver, 
+            UrlResolver urlResolver, 
             IContentLoader contentLoader,
-            IHtmlDownloader htmlDownloader)
+            IHtmlDownloader htmlDownloader, 
+            IOptions<SmtpOptions> smtpOptions,
+            IConfiguration configuration)
         {
             _httpContextAccessor = httpContextBase;
             _urlResolver = urlResolver;
             _contentLoader = contentLoader;
             _htmlDownloader = htmlDownloader;
+            _smtpOptions = smtpOptions;
+            _configuration = configuration;
         }
 
         public void Send(ContentReference mailReference, NameValueCollection nameValueCollection, string toEmail, string language)
@@ -59,26 +69,27 @@ namespace EPiServer.Reference.Commerce.Shared.Services
 
         public void Send(string subject, string body, string recipientMailAddress)
         {
-            var message = new MailMessage
+            var message = new MimeMessage
             {
                 Subject = subject,
-                Body = body,
-                IsBodyHtml = true
+                Body = new TextPart("html") { Text = body }
             };
-
-            message.To.Add(recipientMailAddress);
+            message.From.Add(MailboxAddress.Parse(_configuration.GetValue<string>("EPiServer:SmtpOptions:FromEmailAddress")));
+            message.To.Add(MailboxAddress.Parse(recipientMailAddress));
 
             Send(message);
         }
 
-        public void Send(MailMessage message)
+        public void Send(MimeMessage message)
         {
-            using (var client = new SmtpClient())
-            {
-                // The SMTP host, port and sender e-mail address are configured
-                // in the system.net section in web.config.
-                client.Send(message);
-            }
+            int port = _smtpOptions.Value.Network.Port.HasValue ? _smtpOptions.Value.Network.Port.Value : DefaultSmtpPort;
+            bool useSsl = _smtpOptions.Value.Network.UseSsl.HasValue? _smtpOptions.Value.Network.UseSsl.Value : false;
+
+            using var client = new SmtpClient();
+            client.Connect(_smtpOptions.Value.Network.Host, port, useSsl);
+            client.Authenticate(_smtpOptions.Value.Network.UserName, _smtpOptions.Value.Network.Password);
+            client.Send(message);
+            client.Disconnect(true);
         }
     }
 }

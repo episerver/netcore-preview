@@ -6,15 +6,14 @@ using EPiServer.Reference.Commerce.Site.Features.Checkout.Services;
 using EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModelFactories;
 using EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels;
 using EPiServer.Reference.Commerce.Site.Features.Market.Services;
-using EPiServer.Reference.Commerce.Site.Features.Payment.PaymentMethods;
 using EPiServer.Reference.Commerce.Site.Features.Recommendations.Services;
 using EPiServer.Reference.Commerce.Site.Features.Shared.Services;
+using EPiServer.Reference.Commerce.Site.Features.Start.Pages;
 using EPiServer.Reference.Commerce.Site.Infrastructure.Attributes;
 using EPiServer.Web.Mvc;
 using EPiServer.Web.Mvc.Html;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +35,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
         private ICart _cart;
         private readonly CheckoutService _checkoutService;
         private readonly IContentRepository _contentRepository;
+        private readonly IContentLoader _contentLoader;
 
         public CheckoutController(
             ICurrencyService currencyService,
@@ -46,7 +46,8 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             IRecommendationService recommendationService,
             CheckoutService checkoutService,
             OrderValidationService orderValidationService,
-            IContentRepository contentRepository)
+            IContentRepository contentRepository,
+            IContentLoader contentLoader)
         {
             _currencyService = currencyService;
             _orderRepository = orderRepository;
@@ -57,6 +58,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             _checkoutService = checkoutService;
             _orderValidationService = orderValidationService;
             _contentRepository = contentRepository;
+            _contentLoader = contentLoader;
         }
 
         [HttpGet]
@@ -66,6 +68,12 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             if (CartIsNullOrEmpty())
             {
                 return View("EmptyCart");
+            }
+
+            if (currentPage == null)
+            {
+                var currentPageContentReference = _contentLoader.Get<StartPage>(ContentReference.StartPage).CheckoutPage;
+                currentPage = _contentRepository.Get<CheckoutPage>(currentPageContentReference);
             }
 
             var viewModel = CreateCheckoutViewModel(currentPage);
@@ -200,7 +208,8 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
 
             var confirmationSentSuccessfully = _checkoutService.SendConfirmation(viewModel, purchaseOrder);
             var redirectUrl = _checkoutService.BuildRedirectionUrl(viewModel, purchaseOrder, confirmationSentSuccessfully);
-            return Ok(redirectUrl);
+
+            return paymentMethod.SystemKeyword.Equals("adyen", StringComparison.OrdinalIgnoreCase) ? Ok(redirectUrl) : Redirect(redirectUrl);
         }
 
         private ViewResult View(CheckoutViewModel checkoutViewModel)

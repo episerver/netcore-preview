@@ -9,7 +9,6 @@ using AlloyTemplates.Business;
 using EPiServer.Web.Mvc.Html;
 using EPiServer;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -33,20 +32,20 @@ namespace AlloyTemplates.Helpers
         /// Filter by access rights and publication status.
         /// </remarks>
         public static IHtmlContent MenuList(
-            this IHtmlHelper helper, 
-            ContentReference rootLink, 
-            Func<MenuItem, HelperResult> itemTemplate = null, 
-            bool includeRoot = false, 
-            bool requireVisibleInMenu = true, 
+            this IHtmlHelper helper,
+            ContentReference rootLink,
+            Func<MenuItem, HelperResult> itemTemplate = null,
+            bool includeRoot = false,
+            bool requireVisibleInMenu = true,
             bool requirePageTemplate = true)
         {
             itemTemplate = itemTemplate ?? GetDefaultItemTemplate(helper);
             var currentContentLink = helper.ViewContext.HttpContext.GetContentLink();
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
-            
-            Func<IEnumerable<PageData>, IEnumerable<PageData>> filter = 
+
+            Func<IEnumerable<PageData>, IEnumerable<PageData>> filter =
                 pages => pages.FilterForDisplay(requirePageTemplate, requireVisibleInMenu);
-            
+
             var pagePath = contentLoader.GetAncestors(currentContentLink)
                 .Reverse()
                 .Select(x => x.ContentLink)
@@ -127,7 +126,7 @@ namespace AlloyTemplates.Helpers
                     linkTag.Attributes.Add("class", cssClass);
                 }
 
-                linkTag.WriteTo(helper.ViewContext.Writer, HtmlEncoder.Default);
+                helper.ViewContext.Writer.Write(linkTag.RenderStartTag());
             }
             return new ConditionalLink(helper.ViewContext, shouldWriteLink);
         }

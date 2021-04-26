@@ -20,6 +20,7 @@ using Mediachase.Commerce.Orders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -45,9 +46,6 @@ namespace EPiServer.Reference.Commerce.Site
             AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(_webHostingEnvironment.ContentRootPath, "App_Data"));
             services.Configure<DataAccessOptions>(o =>
             {
-                //o.UpdateDatabaseSchema = true;
-
-                o.SetConnectionString(_configuration.GetConnectionString("EPiServerDB"));
                 o.ConnectionStrings.Add(new ConnectionStringOptions
                 {
                     ConnectionString = _configuration.GetConnectionString("EcfSqlConnection"),
@@ -76,7 +74,7 @@ namespace EPiServer.Reference.Commerce.Site
                     uiOptions.Debug = true;
                 });
             }
-           
+            
             services.Configure<JsonOptions>(o =>
             {
                 o.JsonSerializerOptions.PropertyNamingPolicy = null;
@@ -84,9 +82,11 @@ namespace EPiServer.Reference.Commerce.Site
 
             //Commerce
             services.AddCommerce();
+            services.AddTinyMce();
 
             //site specific
             services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
+            services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
             services.TryAddEnumerable(Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton(typeof(IFirstRequestInitializer), typeof(UsersInstaller)));
             services.AddDisplayResolutions();
             services.TryAddSingleton<IRecommendationContext, RecommendationContext>();
