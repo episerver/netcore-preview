@@ -173,3 +173,4 @@ For addon developers, we have added a default location expander that will look f
 * [Support for OpenID Connect](https://world.episerver.com/externalContentView/7ea7be44-e5aa-4673-b9c2-ed92a116fa76 "Support for OpenID Connect")
 * [Installing and configuring the native integration package](https://world.episerver.com/externalContentView/0836e74c-4175-4657-9e8b-bcc015b5a8d8 "Installing and configuring the native integration package")
 * [Workflows and activities](https://world.episerver.com/externalContentView/c72e976b-ed92-454d-8830-cd87075209e4 "Workflows and activities")
+* [Option configuration classes](https://world.episerver.com/externalContentView/6a58d1b5-7f9a-41c2-a4c8-0b63bf33a18d "Option configuration classes")
