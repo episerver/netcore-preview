@@ -137,6 +137,7 @@ For addon developers, we have added a default location expander that will look f
 * [Commerce-specific configurations](https://world.episerver.com/externalContentView/615a8a17-150a-485f-88e0-4938f07db965 "Commerce-specific configurations")
 * [Feature-specific configurations](https://world.episerver.com/externalContentView/60171983-89a5-4761-ad1e-d28124d5517b "Feature-specific configurations")
 * [Caching](https://world.episerver.com/externalContentView/accb3c7b-bd04-4bfd-98b1-2737eeca7fcb "Caching")
+* [Importing catalog data](https://world.episerver.com/externalContentView/a57e2a15-e429-450e-a3cb-387d1a70589c "Importing catalog data")
 * [Catalog DTO and object models](https://world.episerver.com/externalContentView/2bd5fe5b-40a2-41de-836d-6c772e865479 "Catalog DTO and object models")
 * [Catalog product search](https://world.episerver.com/externalContentView/8cf54f54-aa55-48b3-9975-fa599da6cd24 "Catalog product search")
 * [Event-driven catalog indexing](https://world.episerver.com/externalContentView/02482dbc-542b-45c8-bfaa-44f46c0912f4 "Event-driven catalog indexing")
