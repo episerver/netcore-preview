@@ -167,6 +167,7 @@ For addon developers, we have added a default location expander that will look f
 * [Customizing search](https://world.episerver.com/externalContentView/c77b3cfa-45fe-42fa-85bb-f828c0364d63 "Customizing search")
 * [Indexing variants in a product document](https://world.episerver.com/externalContentView/4e0c3e6e-45c5-41fd-a2b4-e76f6af5cdc2 "Indexing variants in a product document")
 * [MetaType class](https://world.episerver.com/externalContentView/9bf86d3e-3d5f-49fe-b17c-9b8e8cbb2afd "MetaType class")
+* [Metadata Plus](https://world.episerver.com/externalContentView/18a116b2-9ee8-4203-8709-82c4edebeb02 "MetadataPlus") 
 * [Working with entity objects](https://world.episerver.com/externalContentView/5630b604-488e-4f57-ac9e-2876b93f1b26 "Working with entity objects")
 * [Working with SQL records](https://world.episerver.com/externalContentView/1fcf2a7e-04f0-40d5-b394-dcf8d040910c "Working with SQL records")
 * [Security](https://world.episerver.com/externalContentView/250587d7-1aa0-4ce1-b4a1-976fdb004024 "Security")
@@ -175,3 +176,6 @@ For addon developers, we have added a default location expander that will look f
 * [Installing and configuring the native integration package](https://world.episerver.com/externalContentView/0836e74c-4175-4657-9e8b-bcc015b5a8d8 "Installing and configuring the native integration package")
 * [Workflows and activities](https://world.episerver.com/externalContentView/c72e976b-ed92-454d-8830-cd87075209e4 "Workflows and activities")
 * [Option configuration classes](https://world.episerver.com/externalContentView/6a58d1b5-7f9a-41c2-a4c8-0b63bf33a18d "Option configuration classes")
+* [Currencies](https://world.episerver.com/externalContentView/bd2ea693-130c-4bcd-9ddb-bc93fcbc1b00 "Currencies")
+* [Object configuration](https://world.episerver.com/externalContentView/65dee408-4998-470d-bb4c-b5f6620954f4 "Object configuration")
+
