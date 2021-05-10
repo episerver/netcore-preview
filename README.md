@@ -178,4 +178,5 @@ For addon developers, we have added a default location expander that will look f
 * [Option configuration classes](https://world.episerver.com/externalContentView/6a58d1b5-7f9a-41c2-a4c8-0b63bf33a18d "Option configuration classes")
 * [Currencies](https://world.episerver.com/externalContentView/bd2ea693-130c-4bcd-9ddb-bc93fcbc1b00 "Currencies")
 * [Object configuration](https://world.episerver.com/externalContentView/65dee408-4998-470d-bb4c-b5f6620954f4 "Object configuration")
+* [Countries and regions](https://world.episerver.com/externalContentView/c6c1d936-318d-412a-9ee9-7a52f4bfd5e3 "Countries and regions")
 
