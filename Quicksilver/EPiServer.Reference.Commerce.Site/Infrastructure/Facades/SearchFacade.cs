@@ -23,10 +23,16 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.Facades
         private SearchProviderType _searchProviderType;
         private bool _initialized;
         private readonly IOptions<SearchOptions> _searchOptions;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IndexBuilder _indexBuilder;
 
-        public SearchFacade(IOptions<SearchOptions> searchOptions)
+        public SearchFacade(IOptions<SearchOptions> searchOptions,
+            IServiceProvider serviceProvider, 
+            IndexBuilder indexBuilder)
         {
             _searchOptions = searchOptions;
+            _serviceProvider = serviceProvider;
+            _indexBuilder = indexBuilder;
         }
 
         public virtual ISearchResults Search(CatalogEntrySearchCriteria criteria)
@@ -54,7 +60,7 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.Facades
             {
                 return;
             }
-            _searchManager = new SearchManager(AppContext.Current.ApplicationName, _searchOptions);
+            _searchManager = new SearchManager(AppContext.Current.ApplicationName, _searchOptions, _serviceProvider, _indexBuilder);
             _searchProviderType = LoadSearchProvider();
             _initialized = true;
         }

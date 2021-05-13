@@ -57,6 +57,8 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport
         private Injected<IWebHostEnvironment> _webHostEnvironment = default;
         private Injected<ISynchronizedObjectInstanceCache> _objectInstanceCache = default;
         private Injected<IOptions<SearchOptions>> _searchOptions = default;
+        private Injected<IServiceProvider> _serviceProvider = default;
+        private Injected<IndexBuilder> _indexBuilder = default;
 
         public int Order => 1000;
 
@@ -362,7 +364,7 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport
 
         private void BuildIndex(string applicationName, bool rebuild)
         {
-            var searchManager = new SearchManager(applicationName, _searchOptions.Service);
+            var searchManager = new SearchManager(applicationName, _searchOptions.Service, _serviceProvider.Service, _indexBuilder.Service);
             searchManager.SearchIndexMessage += SearchManager_SearchIndexMessage;
             searchManager.BuildIndex(rebuild);
         }

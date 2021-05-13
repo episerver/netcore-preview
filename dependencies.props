@@ -1,11 +1,10 @@
 <Project>
   <PropertyGroup>
-    <CmsCoreVersion>12.0.0-inte-020304</CmsCoreVersion>
-    <CmsUIVersion>12.0.0-inte-020863</CmsUIVersion>
-    <TimyMceVersion>3.0.0-inte-020101</TimyMceVersion>
+    <CmsCoreVersion>12.0.0-pre-020400</CmsCoreVersion>
+    <CmsUIVersion>12.0.0-inte-021134</CmsUIVersion>
     <TelemetryVersion>2.0.0-inte-020037</TelemetryVersion>
-    <CommerceCoreVersion>14.0.0-inte-020546</CommerceCoreVersion>
-    <CommerceTrackingeVersion>4.0.0-inte-020546</CommerceTrackingeVersion>
+    <CommerceCoreVersion>14.0.0-inte-020659</CommerceCoreVersion>
+    <CommerceTrackingeVersion>4.0.0-inte-020659</CommerceTrackingeVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Update="EPiServer.CMS.AspNetCore" Version="$(CmsCoreVersion)" />

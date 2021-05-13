@@ -14,9 +14,6 @@
     <PackageReference Include="EPiServer.Framework" />
 		<PackageReference Include="EPiServer.Personalization.Commerce" />
 		<PackageReference Include="EPiServer.Telemetry.UI" />
-    <PackageReference Include="EPiServer.CMS.TinyMce" />
-		<PackageReference Include="Lucene.Net" Version="4.8.0-beta00012" />
-		<PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00012" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
 		<PackageReference Include="System.ServiceModel.Syndication" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0" />

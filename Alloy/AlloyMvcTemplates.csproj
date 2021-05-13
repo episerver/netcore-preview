@@ -9,7 +9,6 @@
     <PackageReference Include="Serilog" />
     <PackageReference Include="Serilog.AspNetCore" />
     <PackageReference Include="EPiServer.CMS.UI.AspNetIdentity" />
-    <PackageReference Include="EPiServer.CMS.TinyMce" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\LanguageFiles\**\*" />
