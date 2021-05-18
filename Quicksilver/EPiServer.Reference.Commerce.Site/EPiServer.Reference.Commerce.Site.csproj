@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <Import Project="..\..\dependencies.props"/>
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
@@ -7,22 +8,22 @@
 	<ItemGroup>
 		<None Include="wwwroot\**\*.*" />
 		<EmbeddedResource Include="lang\**\*" />
-		<PackageReference Include="EPiServer.Cms.UI.AspNetIdentity" />
-		<PackageReference Include="EPiServer.Commerce.Web" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" />
-    <PackageReference Include="EPiServer.Framework" />
-		<PackageReference Include="EPiServer.Personalization.Commerce" />
-		<PackageReference Include="EPiServer.Telemetry.UI" />
+		<PackageReference Include="EPiServer.Cms.UI.AspNetIdentity"  Version="$(CmsUIVersion)"  />
+		<PackageReference Include="EPiServer.Commerce.Web"  Version="$(CommerceCoreVersion)"  />
+    <PackageReference Include="EPiServer.CMS.AspNetCore"  Version="$(CmsCoreVersion)" />
+    <PackageReference Include="EPiServer.CMS.UI.Core"  Version="$(CmsUIVersion)" />
+    <PackageReference Include="EPiServer.Framework"  Version="$(CmsCoreVersion)" />
+		<PackageReference Include="EPiServer.Personalization.Commerce" Version="$(CommerceTrackingeVersion)"  />
+		<PackageReference Include="EPiServer.Telemetry.UI"  Version="$(TelemetryVersion)" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
 		<PackageReference Include="System.ServiceModel.Syndication" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0" />
-    <PackageReference Include="Serilog" />
-    <PackageReference Include="Serilog.AspNetCore" />
-    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Serilog"  Version="$(SerilogVersion)" />
+    <PackageReference Include="Serilog.AspNetCore" Version="$(SerilogAspNetCoreVersion)"  />
+    <PackageReference Include="Serilog.Sinks.File" Version="$(SerilogSinkFileVersion)"  />
     <PackageReference Include="Adyen" Version="5.7.0" />
-    <PackageReference Include="BuildBundlerMinifier" />
-    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="BuildBundlerMinifier"  Version="$(BuildBundlerMinifier)" />
+    <PackageReference Include="Newtonsoft.Json"  Version="$(NewtonsoftVersion)" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Content Remove="wwwroot\js\js\adyen.js" />

@@ -5,28 +5,10 @@
     <TelemetryVersion>2.0.0-inte-020037</TelemetryVersion>
     <CommerceCoreVersion>14.0.0-inte-020659</CommerceCoreVersion>
     <CommerceTrackingeVersion>4.0.0-inte-020659</CommerceTrackingeVersion>
+    <SerilogVersion>2.10.0</SerilogVersion>
+    <SerilogAspNetCoreVersion>3.4.0</SerilogAspNetCoreVersion>
+    <SerilogSinkFileVersion>4.1.0</SerilogSinkFileVersion>
+    <NewtonsoftVersion>12.0.3</NewtonsoftVersion>
+    <BuildBundlerMinifier>3.2.449</BuildBundlerMinifier>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Update="EPiServer.CMS.AspNetCore" Version="$(CmsCoreVersion)" />
-    <PackageReference Update="EPiServer.Cms.AspNetCore.Templating" Version="$(CmsCoreVersion)" />
-    <PackageReference Update="EPiServer.CMS.AspNetCore.Routing" Version="$(CmsCoreVersion)" />
-    <PackageReference Update="EPiServer.CMS.Core" Version="$(CmsCoreVersion)" />
-    <PackageReference Update="EPiServer.Framework" Version="$(CmsCoreVersion)" />
-    <PackageReference Update="EPiServer.Hosting" Version="$(CmsCoreVersion)" />
-    <PackageReference Update="EPiServer.Cms.AspNetCore.HtmlHelpers" Version="$(CmsCoreVersion)"/>
-    <PackageReference Update="EPiServer.CMS.UI.Core" Version="$(CmsUIVersion)" />
-    <PackageReference Update="EPiServer.CMS.Web" Version="$(CmsUIVersion)" />
-    <PackageReference Update="EPiServer.CMS.TinyMce" Version="$(TimyMceVersion)" />
-    <PackageReference Update="EPiServer.CMS.UI.AspNetIdentity" Version="$(CmsUIVersion)" />
-    <PackageReference Update="EPiServer.Commerce.Core" Version="$(CommerceCoreVersion)"/>
-    <PackageReference Update="EPiServer.Commerce.Web" Version="$(CommerceCoreVersion)" />
-    <PackageReference Update="EPiServer.Personalization.Commerce" Version="$(CommerceTrackingeVersion)" />
-    <PackageReference Update="EPiServer.Telemetry.UI" Version="$(TelemetryVersion)" />
-    <PackageReference Update="Serilog.AspNetCore" Version="3.4.0" />
-    <PackageReference Update="Serilog" Version="2.10.0" />
-    <PackageReference Update="Serilog.Sinks.File" Version="4.1.0" />
-    <PackageReference Update="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Update="BuildBundlerMinifier" Version="3.2.449" />
-    
-  </ItemGroup>
 </Project>
