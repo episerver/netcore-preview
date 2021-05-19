@@ -2,8 +2,8 @@ using AlloyMvcTemplates.Extensions;
 using AlloyMvcTemplates.Infrastructure;
 using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.Data;
-using EPiServer.DependencyInjection;
 using EPiServer.Framework.Web.Resources;
+using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Builder;
@@ -12,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
-using EPiServer.Scheduler;
 
 namespace EPiServer.Templates.Alloy.Mvc
 {
@@ -65,7 +64,6 @@ namespace EPiServer.Templates.Alloy.Mvc
             services.AddMvc();
             services.AddAlloy();
             services.AddCms();
-            services.AddTinyMce();
 
             services.AddEmbeddedLocalization<Startup>();
         }

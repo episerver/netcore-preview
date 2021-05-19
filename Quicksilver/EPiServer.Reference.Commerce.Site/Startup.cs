@@ -1,6 +1,5 @@
 using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.Data;
-using EPiServer.DependencyInjection;
 using EPiServer.Framework.Web.Resources;
 using EPiServer.Personalization.Commerce.Tracking;
 using EPiServer.Reference.Commerce.Site.Features.Market.Services;
@@ -82,8 +81,6 @@ namespace EPiServer.Reference.Commerce.Site
 
             //Commerce
             services.AddCommerce();
-            services.AddTinyMce();
-
             //site specific
             services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
