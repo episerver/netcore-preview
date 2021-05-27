@@ -63,7 +63,7 @@ namespace AlloyTemplates.Business
         {
             return string.Format(
                 "{0}?ReturnUrl={1}",
-                _cookieAuthenticationOptions?.LoginPath.Value ?? VirtualPathResolver.Instance.ToAbsolute(Global.AppRelativeLoginPath),
+                _cookieAuthenticationOptions?.LoginPath.Value ?? Global.LoginPath,
                 _urlResolver.GetUrl(returnToContentLink));
         }
 

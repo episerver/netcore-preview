@@ -45,9 +45,10 @@ namespace EPiServer.Templates.Alloy.Mvc
                 });
             }
 
+            services.AddCmsAspNetIdentity<ApplicationUser>();
             services.AddMvc();
             services.AddAlloy();
-            services.AddCms().AddCmsAspNetIdentity<ApplicationUser>();
+            services.AddCms();
 
             services.AddEmbeddedLocalization<Startup>();
         }
