@@ -18,7 +18,6 @@ namespace AlloyTemplates.Business.Channels
             }
         }
 
-        //CMS-16684: ASPNET Core doesn't natively support checking device, we need to reimplement this
         public override bool IsActive(HttpContext context)
         {
             var detection = context.RequestServices.GetRequiredService<IDetection>();

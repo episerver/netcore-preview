@@ -7,8 +7,6 @@
     <PackageReference Include="BuildBundlerMinifier" Version="$(BuildBundlerMinifier)" />
     <PackageReference Include="Wangkanai.Detection" Version="2.0.1" />
     <PackageReference Include="EPiServer.CMS" Version="$(CmsUIVersion)" />
-    <PackageReference Include="Serilog" Version="$(SerilogVersion)" />
-    <PackageReference Include="Serilog.AspNetCore" Version="$(SerilogAspNetCoreVersion)" />
     <PackageReference Include="EPiServer.CMS.UI.AspNetIdentity" Version="$(CmsUIVersion)"  />
   </ItemGroup>
   <ItemGroup>

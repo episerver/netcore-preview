@@ -28,48 +28,30 @@ namespace EPiServer.Templates.Alloy.Mvc
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var dbPath = Path.Combine(_webHostingEnvironment.ContentRootPath, "App_Data\\Alloy.mdf");
-            var connectionstring = _configuration.GetConnectionString("EPiServerDB") ?? $"Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename={dbPath};Initial Catalog=alloy_mvc_netcore;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
-
-            services.Configure<SchedulerOptions>(o =>
-            {
-                o.Enabled = false;
-            });
-
-            services.Configure<DataAccessOptions>(o =>
-            {
-                o.SetConnectionString(connectionstring);
-            });
-
-            services.AddCmsAspNetIdentity<ApplicationUser>(o =>
-            {
-                if (string.IsNullOrEmpty(o.ConnectionStringOptions?.ConnectionString))
-                {
-                    o.ConnectionStringOptions = new ConnectionStringOptions()
-                    {
-                        ConnectionString = connectionstring
-                    };
-                }
-            });
-
             if (_webHostingEnvironment.IsDevelopment())
             {
-                
-                services.Configure<ClientResourceOptions>(uiOptions =>
+                services.Configure<SchedulerOptions>(o =>
                 {
-                    uiOptions.Debug = true;
+                    o.Enabled = false;
+                });
+
+                services.PostConfigure<DataAccessOptions>(o =>
+                {
+                    o.SetConnectionString(_configuration.GetConnectionString("EPiServerDB").Replace("App_Data", Path.GetFullPath("App_Data")));
+                });
+                services.PostConfigure<ApplicationOptions>(o =>
+                {
+                    o.ConnectionStringOptions.ConnectionString = _configuration.GetConnectionString("EPiServerDB").Replace("App_Data", Path.GetFullPath("App_Data"));
                 });
             }
 
             services.AddMvc();
             services.AddAlloy();
-            services.AddCms();
+            services.AddCms().AddCmsAspNetIdentity<ApplicationUser>();
 
             services.AddEmbeddedLocalization<Startup>();
         }
 
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

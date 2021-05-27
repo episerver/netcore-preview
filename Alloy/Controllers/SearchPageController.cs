@@ -10,6 +10,7 @@ namespace AlloyMvcTemplates.Controllers
     {
         public ViewResult Index(SearchPage currentPage, string q)
         {
+            //TODO: Install NuGet package EPiServer.Find.Cms to add search capabilities
             var model = new SearchContentModel(currentPage)
             {
                 Hits = Enumerable.Empty<SearchContentModel.SearchHit>(),
