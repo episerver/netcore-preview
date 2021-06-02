@@ -9,7 +9,7 @@
 		<None Include="wwwroot\**\*.*" />
 		<EmbeddedResource Include="lang\**\*" />
 		<PackageReference Include="EPiServer.Cms.UI.AspNetIdentity"  Version="$(CmsUIVersion)"  />
-		<PackageReference Include="EPiServer.Commerce.Web"  Version="$(CommerceCoreVersion)"  />
+		<PackageReference Include="EPiServer.Commerce"  Version="$(CommerceCoreVersion)"  />
     <PackageReference Include="EPiServer.CMS.AspNetCore"  Version="$(CmsCoreVersion)" />
     <PackageReference Include="EPiServer.CMS.UI.Core"  Version="$(CmsUIVersion)" />
     <PackageReference Include="EPiServer.Framework"  Version="$(CmsCoreVersion)" />
