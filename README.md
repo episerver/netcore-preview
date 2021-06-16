@@ -128,6 +128,7 @@ For addon developers, we have added a default location expander that will look f
 * [Logging](https://world.episerver.com/externalContentView/ac48d781-f9f6-4f16-8677-8281bacdaffa "Logging")
 * [Routing](https://world.episerver.com/externalContentView/968f52c2-8a0f-4111-a34a-d51450d62b1e "Routing")
 * [Security](https://world.episerver.com/externalContentView/bf63f0a1-da67-4a0c-8b71-d753099956d0 "Security")
+* [AzureAD](https://world.episerver.com/externalContentView/c3010617-9874-4275-b1db-af03fd17d5a9 "Azure AD")
 * [Upgrade assistant - overview](https://world.episerver.com/externalContentView/01ad2880-18c2-4898-90d0-9fa99a6fdbe1 "Upgrade assistant - overview")
 * [Upgrade assistant - installation and running](https://world.episerver.com/externalContentView/f5838f07-fc03-464a-9bff-724272e6bf1e "Upgrade assistant - installation and running")
 
