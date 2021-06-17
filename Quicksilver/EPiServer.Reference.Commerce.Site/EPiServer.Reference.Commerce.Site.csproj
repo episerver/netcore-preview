@@ -8,16 +8,9 @@
 	<ItemGroup>
 		<None Include="wwwroot\**\*.*" />
 		<EmbeddedResource Include="lang\**\*" />
-		<PackageReference Include="EPiServer.Cms.UI.AspNetIdentity"  Version="$(CmsUIVersion)"  />
 		<PackageReference Include="EPiServer.Commerce"  Version="$(CommerceCoreVersion)"  />
-    <PackageReference Include="EPiServer.CMS.AspNetCore"  Version="$(CmsCoreVersion)" />
-    <PackageReference Include="EPiServer.CMS.UI.Core"  Version="$(CmsUIVersion)" />
-    <PackageReference Include="EPiServer.Framework"  Version="$(CmsCoreVersion)" />
+    <PackageReference Include="EPiServer.CMS.Core"  Version="$(CmsCoreVersion)" />
 		<PackageReference Include="EPiServer.Personalization.Commerce" Version="$(CommerceTrackingeVersion)"  />
-		<PackageReference Include="EPiServer.Telemetry.UI"  Version="$(TelemetryVersion)" />
-		<PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-		<PackageReference Include="System.ServiceModel.Syndication" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0" />
     <PackageReference Include="Serilog"  Version="$(SerilogVersion)" />
     <PackageReference Include="Serilog.AspNetCore" Version="$(SerilogAspNetCoreVersion)"  />
     <PackageReference Include="Serilog.Sinks.File" Version="$(SerilogSinkFileVersion)"  />

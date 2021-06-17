@@ -1,10 +1,10 @@
 <Project>
   <PropertyGroup>
-    <CmsCoreVersion>12.0.0-pre-020508</CmsCoreVersion>
-    <CmsUIVersion>12.0.0-pre-021458</CmsUIVersion>
-    <TelemetryVersion>2.0.0-inte-020040</TelemetryVersion>
-    <CommerceCoreVersion>14.0.0-inte-020856</CommerceCoreVersion>
-    <CommerceTrackingeVersion>4.0.0-inte-020856</CommerceTrackingeVersion>
+    <CmsCoreVersion>12.0.0-pre-020599</CmsCoreVersion>
+    <CmsUIVersion>12.0.0-pre-021601</CmsUIVersion>
+    <TelemetryVersion>2.0.0-pre-020046</TelemetryVersion>
+    <CommerceCoreVersion>14.0.0-inte-021024</CommerceCoreVersion>
+    <CommerceTrackingeVersion>4.0.0-inte-021024</CommerceTrackingeVersion>
     <SerilogVersion>2.10.0</SerilogVersion>
     <SerilogAspNetCoreVersion>3.4.0</SerilogAspNetCoreVersion>
     <SerilogSinkFileVersion>4.1.0</SerilogSinkFileVersion>
