@@ -17,6 +17,7 @@
     <PackageReference Include="Adyen" Version="5.7.0" />
     <PackageReference Include="BuildBundlerMinifier"  Version="$(BuildBundlerMinifier)" />
     <PackageReference Include="Newtonsoft.Json"  Version="$(NewtonsoftVersion)" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Content Remove="wwwroot\js\js\adyen.js" />

@@ -24,14 +24,14 @@ This preview repository has a nuget.config with the location to the packages.  I
 ## Template Installation
 
 ```
-dotnet new -i EPiServer.Net.Templates::1.0.0-inte-017362 --nuget-source https://pkgs.dev.azure.com/EpiserverEngineering/netCore/_packaging/beta-program/nuget/v3/index.json --force
+dotnet new -i EPiServer.Net.Templates::1.0.0-pre-020034 --nuget-source https://pkgs.dev.azure.com/EpiserverEngineering/netCore/_packaging/beta-program/nuget/v3/index.json --force
 ```
 ---
 
 ## CLI Installation
 
 ```
-dotnet tool install EPiServer.Net.Cli --global --add-source https://pkgs.dev.azure.com/EpiserverEngineering/netCore/_packaging/beta-program/nuget/v3/index.json --version 1.0.0-inte-017362
+dotnet tool install EPiServer.Net.Cli --global --add-source https://pkgs.dev.azure.com/EpiserverEngineering/netCore/_packaging/beta-program/nuget/v3/index.json --version 1.0.0-pre-020034
 ```
 ---
 
@@ -65,20 +65,6 @@ Right now there is no command to create the admin user, we plan to add in the fu
 
 ---
 
-## Create alloy site
-
-```
-dotnet new epicmsalloy --name ProjectName
-cd projectname
-dotnet-episerver create-cms-database ProjectName.csproj -S . -E
-```
-
-### Notes
-
--S stands for the server you want to connect to.  Do not use . if you dont have a local sql server installed.  You could also use MahcineName\SQLEXRESSS or (LocalDb)\MSSqlLocalDB instead of ".".
-Alloy has a middleware to create the administration user.
-
----
 
 ## Configuration
 
