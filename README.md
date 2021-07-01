@@ -1,41 +1,39 @@
-<a href="https://github.com/episerver/netcore-preview"><img src="http://ux.episerver.com/images/logo.png" title="netcore-preview" alt="netcore-preview"></a>
+## Optimizely .NET Core Preview
 
-## Netcore Preview
-
-This preview repository is early access to the latest Episerver packages targeting .NET 5. Here we will collect feedback through github issues regarding specific issues when upgrading your addons or projects.
+This repository is a preview providing early access to the latest Optimizely (formerly Episerver) product packages targeting .NET 5. Please use GitHub issues to provide feedback regarding any specific issues you have encountered when upgrading your add-ons or projects.
 
 ---
 
-## The Solution
+## The solution
 
-Please use your user directory on windows or add everyone to the folder where you created the repo.  Alloy and Quicksilver are both using localdb so you need to have the correct permissions.
+Use your user directory on Windows, or add Everyone to the folder where you created the repository. The Alloy and Quicksilver sample sites are both using localdb, so you need to have the correct permissions.
 
-`Quicksilver has a default username and password of admin@example.com / Episerver123!`
+`NOTE: Quicksilver has a default username and password of admin@example.com / Episerver123!`
 
 ---
 
-## Nuget Package Location
+## Nuget package location
 
-This preview repository has a nuget.config with the location to the packages.  If you need to add your own nuget.config or update package sources, please use the following location.
+This preview repository has a nuget.config with the location to the packages.  If you need to add your own nuget.config or update package sources, use the following location.
   1.  https://pkgs.dev.azure.com/EpiserverEngineering/netCore/_packaging/beta-program/nuget/v3/index.json
 
 ---
 
-## Template Installation
+## Template installation
 
 ```
 dotnet new -i EPiServer.Net.Templates::1.0.0-pre-020034 --nuget-source https://pkgs.dev.azure.com/EpiserverEngineering/netCore/_packaging/beta-program/nuget/v3/index.json --force
 ```
 ---
 
-## CLI Installation
+## CLI installation
 
 ```
 dotnet tool install EPiServer.Net.Cli --global --add-source https://pkgs.dev.azure.com/EpiserverEngineering/netCore/_packaging/beta-program/nuget/v3/index.json --version 1.0.0-pre-020034
 ```
 ---
 
-## Create empty cms site
+## Create empty CMS site
 
 ```
 dotnet new epicmsempty --name ProjectName
@@ -68,7 +66,7 @@ Right now there is no command to create the admin user, we plan to add in the fu
 
 ## Configuration
 
-Most of the configuration has been moved to options classes.  The options classes can be configured through code or the appsettings.json configuration file.  For option classes to be automatically configured from `appsettings.json`, please use the `EPiServer.ServiceLocation.OptionsAttribute`.  There is a configuration section which maps to the leaf node in the JSON.
+Most of the configuration has been moved to options classes. The options classes can be configured through code or the appsettings.json configuration file. For option classes to be automatically configured from `appsettings.json`, use the `EPiServer.ServiceLocation.OptionsAttribute`. There is a configuration section which maps to the leaf node in the JSON.
 
 To utilize legacy configuration sections you can install the `EPiServer.Cms.AspNetCore.Migration` package. This is available to ease migration, however we encourage to update the use options or `appsettings.json` if possible.
 
@@ -95,17 +93,17 @@ There are some added extensibility points when interacting with the Startup clas
 
 ---
 
-## Compiled Views for Shell Modules
+## Compiled views for shell modules
 
-For addon developers, we have added a default location expander that will look for compiled views in a certain location or based on configuration value.
+For add-on developers, we have added a default location expander that will look for compiled views in a certain location or based on configuration value.
   1.  /{ShellModuleName}/Views/
   2.  The folder defined in the module.config viewFolder attribute on module element.
 
 ---
 
-## Find Preview
+## Search & Navigation (formerly Find) preview
 
-To use the update find packages you will need configure the net 5 version in startup file.
+To use the updated Find packages you will need to configure the .NET 5 version in the Startup file.
 
 ```
 services.Configure<FindUIOptions>(x => x.ClientSideResourceBaseUrl = "https://stage.dl.episerver.net/$version$/");
