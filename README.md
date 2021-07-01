@@ -103,6 +103,16 @@ For addon developers, we have added a default location expander that will look f
 
 ---
 
+## Find Preview
+
+To use the update find packages you will need configure the net 5 version in startup file.
+
+```
+services.Configure<FindUIOptions>(x => x.ClientSideResourceBaseUrl = "https://stage.dl.episerver.net/$version$/");
+```
+
+---
+
 ## Preview links to documentation
 
 ### CMS
