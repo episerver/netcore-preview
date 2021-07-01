@@ -12,7 +12,7 @@ Use your user directory on Windows, or add Everyone to the folder where you crea
 
 ---
 
-## Nuget package location
+## NuGet package location
 
 This preview repository has a nuget.config with the location to the packages.  If you need to add your own nuget.config or update package sources, use the following location.
   1.  https://pkgs.dev.azure.com/EpiserverEngineering/netCore/_packaging/beta-program/nuget/v3/index.json
@@ -48,7 +48,7 @@ Right now there is no command to create the admin user, we plan to add in the fu
 
 ---
 
-## Create empty commerce site
+## Create empty Commerce site
 
 ```
 dotnet new epicommerceempty --name ProjectName
