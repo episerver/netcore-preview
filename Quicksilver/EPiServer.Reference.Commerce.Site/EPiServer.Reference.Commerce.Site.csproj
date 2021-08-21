@@ -9,7 +9,6 @@
 		<None Include="wwwroot\**\*.*" />
 		<EmbeddedResource Include="lang\**\*" />
 		<PackageReference Include="EPiServer.Commerce"  Version="$(CommerceCoreVersion)"  />
-    <PackageReference Include="EPiServer.CMS.Core"  Version="$(CmsCoreVersion)" />
 		<PackageReference Include="EPiServer.Personalization.Commerce" Version="$(CommerceTrackingeVersion)"  />
     <PackageReference Include="Serilog"  Version="$(SerilogVersion)" />
     <PackageReference Include="Serilog.AspNetCore" Version="$(SerilogAspNetCoreVersion)"  />

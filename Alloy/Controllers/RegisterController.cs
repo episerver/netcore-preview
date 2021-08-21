@@ -60,7 +60,7 @@ namespace AlloyTemplates.Controllers
 
                     AdministratorRegistrationPageMiddleware.IsEnabled = false;
                     SetFullAccessToWebAdmin();
-                    var resFromSignIn = await _signInManager.SignInAsync(_userProvider.Name, model.Username, model.Password);
+                    var resFromSignIn = await _signInManager.SignInAsync(model.Username, model.Password);
                     if (resFromSignIn)
                     {
                         return Redirect("/");

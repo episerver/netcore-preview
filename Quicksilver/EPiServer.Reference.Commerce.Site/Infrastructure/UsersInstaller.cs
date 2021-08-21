@@ -50,7 +50,7 @@ namespace EPiServer.Reference.Commerce.Site.Infrastructure
                 }
 
                 await _uIRoleProvider.AddUserToRolesAsync(result.User.Username, roles);
-                var resFromSignIn = await _uISignInManager.SignInAsync(_uIUserProvider.Name, username, "Episerver123!");
+                var resFromSignIn = await _uISignInManager.SignInAsync(username, "Episerver123!");
             }
         }
 
