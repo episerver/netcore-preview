@@ -10,6 +10,8 @@
 		<EmbeddedResource Include="lang\**\*" />
 		<PackageReference Include="EPiServer.Commerce"  Version="$(CommerceCoreVersion)"  />
 		<PackageReference Include="EPiServer.Personalization.Commerce" Version="$(CommerceTrackingeVersion)"  />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="$(CmsCoreVersion)"  />
+    <PackageReference Include="EPiServer.Hosting" Version="$(CmsCoreVersion)"  />
     <PackageReference Include="Serilog"  Version="$(SerilogVersion)" />
     <PackageReference Include="Serilog.AspNetCore" Version="$(SerilogAspNetCoreVersion)"  />
     <PackageReference Include="Serilog.Sinks.File" Version="$(SerilogSinkFileVersion)"  />
