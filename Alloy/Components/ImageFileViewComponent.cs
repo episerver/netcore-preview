@@ -1,6 +1,5 @@
 using AlloyTemplates.Models.Media;
 using AlloyTemplates.Models.ViewModels;
-using EPiServer.Cms.AspNetCore.Mvc;
 using EPiServer.Web.Mvc;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +22,7 @@ namespace AlloyTemplates.Controllers
         /// The index action for the image file. Creates the view model and renders the view.
         /// </summary>
         /// <param name="currentContent">The current image file.</param>
-        public override IViewComponentResult Invoke(ImageFile currentContent)
+        protected override IViewComponentResult InvokeComponent(ImageFile currentContent)
         {
             var model = new ImageViewModel
             {

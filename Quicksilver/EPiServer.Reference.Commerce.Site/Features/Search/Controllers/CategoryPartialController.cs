@@ -24,7 +24,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Search.Controllers
 
         [HttpGet]
         [HttpPost]
-        public override IViewComponentResult Invoke(NodeContent currentContent)
+        protected override IViewComponentResult InvokeComponent(NodeContent currentContent)
         {
             var productModels = GetProductModels(currentContent);
             return View("_Category", productModels);

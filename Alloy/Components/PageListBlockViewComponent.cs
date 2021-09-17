@@ -1,14 +1,13 @@
-using System.Collections.Generic;
-using System.Linq;
-using EPiServer.Core;
-using EPiServer.Filters;
 using AlloyTemplates.Business;
 using AlloyTemplates.Models.Blocks;
 using AlloyTemplates.Models.ViewModels;
-using EPiServer.Web.Mvc;
 using EPiServer;
+using EPiServer.Core;
+using EPiServer.Filters;
+using EPiServer.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
-using EPiServer.Cms.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AlloyTemplates.Controllers
 {
@@ -22,7 +21,7 @@ namespace AlloyTemplates.Controllers
             this.contentLoader = contentLoader;
         }
 
-        public override IViewComponentResult Invoke(PageListBlock currentBlock)
+        protected override IViewComponentResult InvokeComponent(PageListBlock currentBlock)
         {
             var pages = FindPages(currentBlock);
 

@@ -24,7 +24,7 @@ namespace AlloyTemplates.Controllers
         /// The index action for the video file. Creates the view model and renders the view.
         /// </summary>
         /// <param name="currentContent">The current video file.</param>
-        public override IViewComponentResult Invoke(VideoFile currentContent)
+        protected override IViewComponentResult InvokeComponent(VideoFile currentContent)
         {
             var model = new VideoViewModel
             {

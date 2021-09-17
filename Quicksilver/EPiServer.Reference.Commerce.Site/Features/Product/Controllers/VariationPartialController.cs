@@ -18,7 +18,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Product.Controllers
 
         [HttpGet]
         [HttpPost]
-        public override IViewComponentResult Invoke(VariationContent currentContent)
+        protected override IViewComponentResult InvokeComponent(VariationContent currentContent)
         {
             return View("_Product", _productService.GetProductTileViewModel(currentContent));
         }
