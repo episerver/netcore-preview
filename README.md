@@ -1,8 +1,8 @@
-## Optimizely .NET Core Preview
-
-This repository is a preview providing early access to the latest Optimizely (formerly Episerver) product packages targeting .NET 5. Please use GitHub issues to provide feedback regarding any specific issues you have encountered when upgrading your add-ons or projects.
+## This repository is being archived. The official release can now be found at Optimizely World, see the summary page on .NET 5 here https://world.optimizely.com/net5
 
 ---
+
+This repository is a preview providing early access to the latest Optimizely (formerly Episerver) product packages targeting .NET 5. Please use GitHub issues to provide feedback regarding any specific issues you have encountered when upgrading your add-ons or projects.
 
 ## The solution
 
